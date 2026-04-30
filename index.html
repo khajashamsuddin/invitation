@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mujtaba & Shaista — Engagement</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lateef&display=swap" rel="stylesheet">
+
+<style>
+/* ══════════════════════════════════════════════
+   CRYSTAL TUNNEL THEME - MOBILE OPTIMIZED
+   ══════════════════════════════════════════════ */
+:root {
+  --bg-color: #080605; 
+  --text-main: #fdfaf6;
+  --text-muted: #c8bba9;
+  --accent: #e5cdab; 
+  --glass-bg: rgba(10, 8, 6, 0.6);
+  --glass-border: rgba(229, 205, 171, 0.25);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--bg-color); color: var(--text-main);
+  font-family: 'Montserrat', sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+#scroll-proxy {
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 500vh; /* Increased height so all GSAP trigger zones are reachable */
+  z-index: 1;
+}
+
+#webgl-canvas {
+  position: fixed; inset: 0;
+  width: 100vw; height: 100vh;
+  z-index: 2; pointer-events: none;
+}
+
+#ui-layer {
+  position: fixed; inset: 0;
+  z-index: 10; pointer-events: none;
+  opacity: 0; visibility: hidden;
+}
+
+/* Curtain / Enter Screen */
+#curtain {
+  position: fixed; inset: 0; z-index: 100;
+  background: var(--bg-color);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  transition: opacity 1.5s ease, transform 1.5s ease;
+  pointer-events: auto; cursor: pointer;
+  padding: 20px; text-align: center;
+}
+#curtain.hidden { opacity: 0; transform: scale(1.05); pointer-events: none; }
+.curtain-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(2.5rem, 8vw, 6rem);
+  color: var(--accent); margin-bottom: 20px;
+  text-shadow: 0 0 20px rgba(229, 205, 171, 0.3);
+  font-weight: 600; line-height: 1.2;
+}
+.curtain-sub {
+  font-size: 0.8rem; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--text-muted); animation: pulse 2s infinite;
+  font-weight: 300; margin-bottom: 40px;
+}
+@keyframes pulse { 0%,100%{opacity:0.4;} 50%{opacity:1;} }
+
+/* Exhibits */
+.exhibit {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 15px; text-align: center;
+  opacity: 0; visibility: hidden;
+}
+.exhibit.active { pointer-events: auto; }
+
+/* Dark Luxury Glassmorphism */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--glass-border);
+  padding: 40px 25px;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(229, 205, 171, 0.05);
+  max-width: 800px;
+  width: 100%;
+  transform: translateY(20px);
+  transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.8s ease;
+}
+.exhibit.active .glass-panel { transform: translateY(0); }
+
+h1, h2 {
+  font-family: 'Cinzel', serif;
+  font-weight: 400; line-height: 1.2;
+  margin-bottom: 15px;
+  color: var(--accent);
+  text-shadow: 0 0 10px rgba(229, 205, 171, 0.2);
+}
+.supertag {
+  font-size: 0.65rem; letter-spacing: 0.4em; text-transform: uppercase;
+  color: var(--text-muted); margin-bottom: 15px; font-weight: 400;
+}
+.body-text {
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  color: var(--text-main); max-width: 600px; line-height: 1.6;
+  margin: 0 auto 25px; font-weight: 300;
+}
+.divider {
+  width: 60px; height: 1px; background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  margin: 20px auto; opacity: 0.6;
+}
+
+/* Specific Exhibit Styles */
+.hero-title { font-size: clamp(2.2rem, 7vw, 5rem); }
+.hero-arabic { font-size: 2.8rem; color: var(--accent); margin-bottom: 10px; font-weight: 300; font-family: 'Lateef', serif; text-shadow: 0 0 15px rgba(229, 205, 171, 0.4);}
+
+.couple-names { font-size: clamp(2.2rem, 7vw, 4.5rem); margin: 5px 0; color: #fff; text-shadow: 0 0 15px rgba(255,255,255,0.3); }
+.ampersand { font-family: 'Cinzel', serif; color: var(--accent); font-size: 2rem; margin: -5px 0; }
+
+.details-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 30px; text-align: left;
+}
+@media(max-width: 600px){ 
+  .details-grid { grid-template-columns: 1fr; gap: 15px; text-align: center; } 
+  .glass-panel { padding: 30px 15px; }
+}
+.detail-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--text-muted); margin-bottom: 4px; font-weight: 400; }
+.detail-val { font-size: 1.1rem; color: #fff; font-family: 'Cinzel', serif; font-weight: 600; }
+
+.cd-wrap { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+.cd-box { 
+  border: 1px solid var(--glass-border); padding: 15px 10px; min-width: 75px; 
+  background: rgba(0,0,0,0.6); border-radius: 8px; flex: 1; max-width: 100px;
+}
+.cd-num { font-family: 'Cinzel', serif; font-size: 2.5rem; color: var(--accent); line-height: 1; margin-bottom: 5px; text-shadow: 0 0 10px rgba(229, 205, 171, 0.4); font-weight: 600; }
+.cd-lbl { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--text-muted); font-weight: 400;}
+
+.form-input, .form-area {
+  width: 100%; background: rgba(0,0,0,0.5);
+  border: 1px solid var(--glass-border); color: var(--text-main);
+  padding: 15px; margin-bottom: 15px; font-family: 'Montserrat', sans-serif;
+  outline: none; transition: all 0.3s;
+  border-radius: 4px; font-weight: 300; font-size: 0.9rem;
+}
+.form-input:focus, .form-area:focus { border-color: var(--accent); background: rgba(0,0,0,0.7); }
+.form-area { resize: vertical; min-height: 100px; }
+
+.btn {
+  background: transparent; color: var(--accent); 
+  border: 1px solid var(--accent);
+  padding: 14px 35px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.15em;
+  cursor: pointer; transition: all 0.4s ease;
+  position: relative; overflow: hidden;
+  border-radius: 4px; font-size: 0.85rem; width: 100%; max-width: 300px;
+}
+.btn::before {
+  content: ''; position: absolute; inset: 0; background: var(--accent);
+  transform: scaleX(0); transform-origin: right; transition: transform 0.4s ease;
+  z-index: -1;
+}
+.btn:hover { color: var(--bg-color); }
+.btn:hover::before { transform: scaleX(1); transform-origin: left; }
+
+.dev-cta {
+  display: inline-block; margin-top: 30px; padding-top: 20px;
+  border-top: 1px solid rgba(229, 205, 171, 0.2);
+  font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;
+  text-decoration: none; transition: color 0.3s; width: 100%;
+}
+.dev-cta:hover { color: var(--accent); }
+
+/* Scroll Prompt */
+.scroll-indicator {
+  position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center;
+  opacity: 0; visibility: hidden; transition: opacity 1s ease;
+  z-index: 15; pointer-events: none;
+}
+.scroll-indicator.visible { opacity: 1; visibility: visible; }
+.scroll-text { font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; animation: pulse 2s infinite; }
+.scroll-arrow { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--accent), transparent); animation: drop 2s infinite; }
+@keyframes drop { 0% { transform: scaleY(0); transform-origin: top; } 50% { transform: scaleY(1); transform-origin: top; } 51% { transform: scaleY(1); transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
+
+
+
+/* Audio Button */
+#mbtn {
+  position: fixed; bottom: 20px; right: 20px; z-index: 20;
+  width: 45px; height: 45px; border-radius: 50%;
+  background: var(--glass-bg); border: 1px solid var(--glass-border);
+  backdrop-filter: blur(5px);
+  color: var(--text-muted); cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: 0.3s; pointer-events: auto; font-size: 1.1rem;
+}
+#mbtn:hover { border-color: var(--accent); color: var(--accent); }
+</style>
+</head>
+<body>
+
+<audio id="bgm" src="vo.mp3" loop preload="none"></audio>
+<button id="mbtn" onclick="toggleMusic()">♪</button>
+
+<canvas id="webgl-canvas"></canvas>
+<div id="scroll-proxy"></div>
+
+<div class="scroll-indicator" id="scroll-prompt">
+  <div class="scroll-text">Scroll Down</div>
+  <div class="scroll-arrow"></div>
+</div>
+
+<div id="ui-layer">
+  <!-- Exhibit 1 -->
+  <section class="exhibit" id="ex-1" style="opacity: 1; visibility: visible;">
+    <div class="glass-panel">
+      <p class="hero-arabic" lang="ar">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
+      <p class="supertag">In the name of Allah,the Most Gracious, the Most Merciful.</p>
+      <div class="divider"></div>
+      <h1 class="hero-title">A Blessed Occasion</h1>
+      <p class="body-text">With hearts full of joy and gratitude, we invite you to step into the light of our upcoming engagement Of,</p>
+    </div>
+  </section>
+
+  <!-- Exhibit 2 -->
+  <section class="exhibit" id="ex-2">
+    <div class="glass-panel">
+      <p class="supertag">Two Souls, One Destiny</p>
+      <h2 class="couple-names">Khaja Mujtaba Ahmed</h2>
+      <p class="body-text" style="font-size: 0.8rem;">Son of Mr. & Mrs. Khaja Ahmeduddin Ahmed</p>
+      <div class="ampersand">With</div>
+      <h2 class="couple-names">Shaista Fatima</h2>
+      <p class="body-text" style="font-size: 0.8rem;">Daughter of Mr. & Mrs. Late. Mirza Ghouse Baig</p>
+    </div>
+  </section>
+
+  <!-- Exhibit 3 -->
+  <section class="exhibit" id="ex-3">
+    <div class="glass-panel">
+      <p class="supertag">The Ceremony</p>
+      <h2 style="font-size: clamp(2.5rem, 6vw, 4rem); margin-bottom: 30px;">Mangni (Engagement)</h2>
+      <div class="details-grid">
+        <div>
+          <div class="detail-label">Date</div>
+          <div class="detail-val">Friday, 29 May 2026</div>
+        </div>
+        <div>
+          <div class="detail-label">Time</div>
+          <div class="detail-val">8:00 PM Onwards</div>
+        </div>
+        <div>
+          <div class="detail-label">Venue</div>
+          <div class="detail-val">MKM Convention Hall</div>
+        </div>
+        <div>
+          <div class="detail-label">Location</div>
+          <div class="detail-val" style="margin-bottom: 10px;">Hafiz Baba Nagar, Hyderabad</div>
+          <a href="https://www.google.com/maps/place/MKM+CONVENTION+HALL/@17.3299766,78.490602,17z/data=!3m1!4b1!4m6!3m5!1s0x3bcba3d05583143b:0x26464339b54af205!8m2!3d17.3299766!4d78.490602!16s%2Fg%2F11qbsbb0l3?entry=ttu&g_ep=EgoyMDI2MDQyNy4wIKXMDSoASAFQAw%3D%3D" target="_blank" style="color: var(--accent); text-decoration: none; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; border-bottom: 1px solid var(--accent); padding-bottom: 2px;">Get Directions →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Exhibit 4 -->
+  <section class="exhibit" id="ex-4">
+    <div class="glass-panel">
+      <p class="supertag">Counting Down</p>
+      <h2 style="font-size: clamp(2.5rem, 8vw, 5rem); text-shadow: 0 4px 15px rgba(0,0,0,0.8);">The Day Approaches</h2>
+      <div class="cd-wrap">
+        <div class="cd-box"><div class="cd-num" id="cd-d">00</div><div class="cd-lbl">Days</div></div>
+        <div class="cd-box"><div class="cd-num" id="cd-h">00</div><div class="cd-lbl">Hours</div></div>
+        <div class="cd-box"><div class="cd-num" id="cd-m">00</div><div class="cd-lbl">Mins</div></div>
+        <div class="cd-box"><div class="cd-num" id="cd-s">00</div><div class="cd-lbl">Secs</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Exhibit 5 -->
+  <section class="exhibit" id="ex-5">
+    <div class="glass-panel">
+      <p class="supertag">Your Blessings</p>
+      <h2 style="font-size: clamp(2.5rem, 6vw, 4rem);">Leave a Message</h2>
+      <p class="body-text" style="margin-bottom: 15px; font-size: 0.9rem;">Send your heartfelt wishes directly to the couple.</p>
+      <input type="text" id="w-name" class="form-input" placeholder="Your Full Name">
+      <textarea id="w-msg" class="form-area" placeholder="Your wishes..."></textarea>
+      <button class="btn" onclick="sendWish()">Send Wishes via WhatsApp</button>
+    </div>
+  </section>
+
+  <!-- Exhibit 6 -->
+  <section class="exhibit" id="ex-6">
+    <div class="glass-panel" style="text-align: center; border: 1px solid rgba(229, 205, 171, 0.15); box-shadow: none; padding: 40px 20px; background: rgba(0,0,0,0.3); max-width: 400px; backdrop-filter: blur(4px);">
+      <h2 style="font-size: 1.6rem; margin-bottom: 10px; font-weight: 300; letter-spacing: 0.1em; color: var(--accent);">Create Yours</h2>
+      <p class="body-text" style="font-size: 0.85rem; margin-bottom: 25px; color: var(--text-muted);">Want a digital invitation?</p>
+      
+      <a href="https://wa.me/917680097715?text=Hello%20Shamsuddin,%20I%20want%20to%20create%20my%20own%20invitation" target="_blank" class="btn" style="display: inline-block; text-decoration: none; padding: 12px 30px; font-size: 0.75rem; background: transparent; border: 1px solid rgba(229, 205, 171, 0.4); letter-spacing: 0.15em; border-radius: 4px;">
+        Contact Developer
+      </a>
+    </div>
+  </section>
+</div>
+
+<!-- Global Watermark -->
+<div style="position: fixed; bottom: 15px; left: 50%; transform: translateX(-50%); font-size: 0.55rem; color: rgba(255, 255, 255, 0.2); letter-spacing: 0.3em; text-transform: uppercase; font-family: 'Montserrat', sans-serif; pointer-events: none; z-index: 25; white-space: nowrap;">
+  Created by Khaja Shamsuddin Ahmed
+</div>
+
+<!-- Curtain -->
+<div id="curtain" onclick="enterGallery()">
+  <h1 class="curtain-title">Mujtaba & Shaista</h1>
+  <p class="curtain-sub">Tap anywhere to enter</p>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+<script>
+// --- UI & Interactions ---
+let musicPlaying = false;
+function toggleMusic() {
+  const bgm = document.getElementById('bgm');
+  const btn = document.getElementById('mbtn');
+  if(musicPlaying) { bgm.pause(); btn.style.color = 'var(--text-muted)'; btn.style.borderColor = 'var(--glass-border)'; }
+  else { bgm.play().catch(()=>{}); btn.style.color = 'var(--accent)'; btn.style.borderColor = 'var(--accent)'; }
+  musicPlaying = !musicPlaying;
+}
+
+function enterGallery() {
+  document.getElementById('curtain').classList.add('hidden');
+  toggleMusic();
+  
+  // Show scroll prompt after a short delay
+  setTimeout(() => {
+    document.getElementById('scroll-prompt').classList.add('visible');
+  }, 2000);
+
+  setTimeout(() => {
+    gsap.to("#ui-layer", { autoAlpha: 1, duration: 1.2, ease: "power2.out" });
+  }, 500);
+}
+
+// No infinite loop
+
+const targetDate = new Date('2026-05-29T20:00:00');
+function updateCD() {
+  const diff = Math.max(0, targetDate - new Date());
+  document.getElementById('cd-d').innerText = String(Math.floor(diff / 86400000)).padStart(2,'0');
+  document.getElementById('cd-h').innerText = String(Math.floor((diff % 86400000) / 3600000)).padStart(2,'0');
+  document.getElementById('cd-m').innerText = String(Math.floor((diff % 3600000) / 60000)).padStart(2,'0');
+  document.getElementById('cd-s').innerText = String(Math.floor((diff % 60000) / 1000)).padStart(2,'0');
+}
+setInterval(updateCD, 1000); updateCD();
+
+function sendWish() {
+  const name = document.getElementById('w-name').value.trim();
+  const msg = document.getElementById('w-msg').value.trim();
+  if(!name) return alert('Please enter your name.');
+  const text = `*Engagement Wish*\n\n*From:* ${name}\n*Message:* ${msg || '(No message)'}`;
+  window.open(`https://wa.me/971506774479?text=${encodeURIComponent(text)}`, '_blank');
+}
+
+// --- 3D Crystal Shimmering Tunnel (MOBILE OPTIMIZED) ---
+const canvas = document.getElementById('webgl-canvas');
+const scene = new THREE.Scene();
+
+const bgColor = new THREE.Color('#050403');
+const fogColor = new THREE.Color('#0a0806');
+scene.background = bgColor;
+scene.fog = new THREE.FogExp2(fogColor, 0.015);
+
+// Optimize for mobile: Reduce far clipping plane and pixel ratio
+const camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 0.1, 200);
+camera.position.set(0, 1.6, 0); // Slightly lower eye level for mobile perspective
+
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: false }); // Antialias false saves huge perf on mobile
+renderer.setSize(window.innerWidth, window.innerHeight);
+// Crucial Mobile Optimization: Limit pixel ratio to 1.5 maximum to prevent lag on high-DPI phones
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5)); 
+
+const ambientLight = new THREE.AmbientLight('#221a15', 1);
+scene.add(ambientLight);
+
+// Reduce path length to make scroll faster
+const pathLength = 150; 
+// Reduce number of lights for mobile perf
+for(let i=0; i<6; i++) {
+  const pl = new THREE.PointLight('#ffe6cc', 0.8, 50);
+  pl.position.set((i%2===0?-3:3), 5, -(i * 25));
+  scene.add(pl);
+}
+
+const groundGeo = new THREE.PlaneGeometry(60, pathLength + 50);
+const groundMat = new THREE.MeshStandardMaterial({ color: '#122510', roughness: 0.9, metalness: 0 });
+const ground = new THREE.Mesh(groundGeo, groundMat);
+ground.rotation.x = -Math.PI / 2;
+ground.position.z = -pathLength / 2;
+scene.add(ground);
+
+const pathGeo = new THREE.PlaneGeometry(3, pathLength + 50);
+const pathMat = new THREE.MeshStandardMaterial({ color: '#1a3315', roughness: 0.8, metalness: 0 });
+const pathMesh = new THREE.Mesh(pathGeo, pathMat);
+pathMesh.rotation.x = -Math.PI / 2;
+pathMesh.position.y = 0.02; 
+pathMesh.position.z = -pathLength / 2;
+scene.add(pathMesh);
+
+// Crystal String Curtains (Reduced count for mobile)
+const lineCount = 1200; 
+const lineGeo = new THREE.BufferGeometry();
+const linePos = new Float32Array(lineCount * 2 * 3); 
+const lineColors = new Float32Array(lineCount * 2 * 3);
+const c1 = new THREE.Color('#ffffff');
+const c2 = new THREE.Color('#d4af37');
+
+for(let i=0; i<lineCount; i++) {
+  const isLeft = Math.random() > 0.5;
+  const x = (isLeft ? -1 : 1) * (2.5 + Math.random() * 2);
+  const z = -Math.random() * pathLength;
+  const yTop = 12;
+  const yBottom = -1;
+
+  linePos[i*6] = x; linePos[i*6+1] = yTop; linePos[i*6+2] = z;
+  linePos[i*6+3] = x; linePos[i*6+4] = yBottom; linePos[i*6+5] = z;
+
+  const mix = Math.random();
+  const c = c1.clone().lerp(c2, mix);
+  lineColors[i*6] = c.r; lineColors[i*6+1] = c.g; lineColors[i*6+2] = c.b;
+  lineColors[i*6+3] = c.r; lineColors[i*6+4] = c.g; lineColors[i*6+5] = c.b;
+}
+
+lineGeo.setAttribute('position', new THREE.BufferAttribute(linePos, 3));
+lineGeo.setAttribute('color', new THREE.BufferAttribute(lineColors, 3));
+
+const lineMat = new THREE.LineBasicMaterial({
+  vertexColors: true,
+  transparent: true,
+  opacity: 0.4,
+  blending: THREE.AdditiveBlending,
+  depthWrite: false
+});
+const stringCurtains = new THREE.LineSegments(lineGeo, lineMat);
+scene.add(stringCurtains);
+
+// Ceiling Tassels (Reduced geometry complexity and count)
+const crystalGeo = new THREE.ConeGeometry(0.15, 0.6, 3); // 3 segments instead of 4
+crystalGeo.rotateX(Math.PI);
+const crystalMat = new THREE.MeshStandardMaterial({
+  color: '#ffffff', roughness: 0.3, metalness: 0.8, emissive: '#332211', emissiveIntensity: 0.4
+});
+
+const crystalCount = 1200;
+const crystalMesh = new THREE.InstancedMesh(crystalGeo, crystalMat, crystalCount);
+const dummy = new THREE.Object3D();
+
+for (let i = 0; i < crystalCount; i++) {
+  const x = (Math.random() - 0.5) * 8; 
+  const z = -Math.random() * pathLength;
+  const y = 5 + Math.random() * 3; 
+  
+  dummy.position.set(x, y, z);
+  dummy.rotation.set(0, Math.random() * Math.PI, 0);
+  dummy.scale.setScalar(0.5 + Math.random() * 1.5);
+  dummy.updateMatrix();
+  crystalMesh.setMatrixAt(i, dummy.matrix);
+}
+scene.add(crystalMesh);
+
+// Floating Bokeh (Reduced count)
+const pCount = 300;
+const pGeo = new THREE.BufferGeometry();
+const pPos = new Float32Array(pCount * 3);
+for(let i=0; i<pCount; i++) {
+  pPos[i*3] = (Math.random() - 0.5) * 10;
+  pPos[i*3+1] = Math.random() * 8;
+  pPos[i*3+2] = -Math.random() * pathLength;
+}
+pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+
+const pCanvas = document.createElement('canvas');
+pCanvas.width = 16; pCanvas.height = 16;
+const pCtx = pCanvas.getContext('2d');
+const gradient = pCtx.createRadialGradient(8, 8, 0, 8, 8, 8);
+gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
+gradient.addColorStop(0.3, 'rgba(255, 230, 180, 0.8)');
+gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+pCtx.fillStyle = gradient;
+pCtx.fillRect(0, 0, 16, 16);
+
+const pMat = new THREE.PointsMaterial({
+  size: 0.4,
+  map: new THREE.CanvasTexture(pCanvas),
+  transparent: true, opacity: 0.6, color: '#ffddaa',
+  blending: THREE.AdditiveBlending, depthWrite: false
+});
+const particles = new THREE.Points(pGeo, pMat);
+scene.add(particles);
+
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+function animate() {
+  requestAnimationFrame(animate);
+  const time = Date.now() * 0.0005;
+  crystalMesh.rotation.y = Math.sin(time) * 0.01;
+  particles.rotation.y = time * 0.03;
+  renderer.render(scene, camera);
+}
+animate();
+
+// --- Fast non-overlapping GSAP Setup ---
+gsap.registerPlugin(ScrollTrigger);
+
+const finalZ = -pathLength + 10;
+gsap.to(camera.position, {
+  z: finalZ,
+  ease: "none",
+  scrollTrigger: { trigger: "#scroll-proxy", start: "top top", end: "bottom bottom", scrub: true }
+});
+
+const exhibits = document.querySelectorAll('.exhibit');
+const numExhibits = exhibits.length;
+
+// Completely separate timeline slices to prevent overlapping
+// ex-1: 0% to 15%
+gsap.fromTo("#ex-1", { autoAlpha: 1, y: 0 }, {
+  autoAlpha: 0, y: -30,
+  ease: "power1.in",
+  scrollTrigger: { trigger: "#scroll-proxy", start: "top top", end: "top+=15% top", scrub: true }
+});
+
+// Calculate clean strict non-overlapping boundaries for remaining 4 exhibits
+// With a 500vh proxy, max scroll is 400vh (80% of proxy height). 
+// So all zones must finish before 80%.
+const zones = [
+  { start: 13, end: 24 }, // Ex 2
+  { start: 29, end: 40 }, // Ex 3
+  { start: 45, end: 56 }, // Ex 4
+  { start: 61, end: 72 }, // Ex 5
+  { start: 76, end: 100 } // Ex 6 (Stays active until the absolute end)
+];
+
+for (let i = 1; i < numExhibits; i++) {
+  const ex = exhibits[i];
+  const zone = zones[i-1];
+  
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: "#scroll-proxy",
+      start: `top+=${zone.start}% top`,
+      end: `top+=${zone.end}% top`,
+      scrub: true,
+      onEnter: () => {
+        ex.classList.add("active");
+        if (i === numExhibits - 1) {
+          document.querySelector('.scroll-text').innerText = "Thanks";
+          document.querySelector('.scroll-arrow').style.display = "none";
+        }
+      },
+      onLeave: () => ex.classList.remove("active"),
+      onEnterBack: () => ex.classList.add("active"),
+      onLeaveBack: () => {
+        ex.classList.remove("active");
+        if (i === numExhibits - 1) {
+          document.querySelector('.scroll-text').innerText = "Scroll Down";
+          document.querySelector('.scroll-arrow').style.display = "block";
+        }
+      }
+    }
+  });
+
+  // Fade in (first 20% of the zone)
+  tl.fromTo(ex, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.2, ease: "none" })
+    .fromTo(ex.querySelector('.glass-panel'), { y: 40, scale: 0.95 }, { y: 0, scale: 1, duration: 0.2, ease: "none" }, "<");
+    
+  if (i < numExhibits - 1) {
+    // Hold (middle 60% of the zone)
+    tl.to(ex, { autoAlpha: 1, duration: 0.6 })
+      // Fade out (last 20% of the zone)
+      .to(ex, { autoAlpha: 0, duration: 0.2, ease: "none" })
+      .to(ex.querySelector('.glass-panel'), { y: -40, scale: 1.05, duration: 0.2, ease: "none" }, "<");
+  } else {
+    // For the last exhibit, do not fade out. Hold for the remaining scroll duration.
+    tl.to(ex, { autoAlpha: 1, duration: 0.8 });
+  }
+}
+</script>
+</body>
+</html>
