@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,8 +13,7 @@
 <meta name="theme-color" content="#020d1a"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Lateef&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500&family=Lateef&family=Noto+Nastaliq+Urdu:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 :root {
@@ -24,16 +23,159 @@
   --accent: #e5cdab;
   --glass-bg: rgba(10, 8, 6, 0.6);
   --glass-border: rgba(229, 205, 171, 0.25);
+  --font-latin: 'Montserrat', sans-serif;
+  --font-display-latin: 'Cinzel', serif;
+  --font-urdu: 'Noto Nastaliq Urdu', 'Lateef', serif;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
+
 body {
   background: var(--bg-color); color: var(--text-main);
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--font-latin);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
 
+/* ── URDU / RTL overrides ── */
+body.lang-ur {
+  font-family: var(--font-urdu);
+  direction: rtl;
+}
+body.lang-ur h1,
+body.lang-ur h2,
+body.lang-ur .hosts-name,
+body.lang-ur .couple-names,
+body.lang-ur .curtain-title {
+  font-family: var(--font-urdu);
+  font-size: clamp(1.8rem, 5vw, 3.8rem);
+  line-height: 1.6;
+}
+body.lang-ur .hero-title {
+  font-size: clamp(2rem, 6vw, 4rem);
+}
+body.lang-ur .hero-arabic {
+  direction: rtl;
+}
+body.lang-ur .supertag,
+body.lang-ur .detail-label,
+body.lang-ur .cd-lbl,
+body.lang-ur .hosts-from,
+body.lang-ur .hosts-closing,
+body.lang-ur .curtain-sub {
+  font-family: var(--font-urdu);
+  letter-spacing: 0;
+  font-size: 1rem;
+}
+body.lang-ur .body-text,
+body.lang-ur .hosts-message,
+body.lang-ur p {
+  font-family: var(--font-urdu);
+  line-height: 2.2;
+  font-size: clamp(1rem, 2.2vw, 1.25rem);
+}
+body.lang-ur .detail-val {
+  font-family: var(--font-urdu);
+  font-size: 1.15rem;
+  line-height: 1.8;
+}
+body.lang-ur .btn {
+  font-family: var(--font-urdu);
+  letter-spacing: 0;
+  font-size: 1rem;
+}
+body.lang-ur .form-input,
+body.lang-ur .form-area {
+  font-family: var(--font-urdu);
+  text-align: right;
+  direction: rtl;
+  font-size: 1rem;
+}
+body.lang-ur .details-grid {
+  text-align: right;
+}
+@media(max-width:600px){
+  body.lang-ur .details-grid {
+    text-align: center;
+  }
+}
+body.lang-ur .cd-num {
+  font-family: var(--font-latin); /* keep numerals latin for clarity */
+}
+/* Flip music button placement on RTL */
+body.lang-ur #mbtn {
+  right: auto;
+  left: 20px;
+}
+/* Keep lang button on opposite side */
+body.lang-ur #lang-btn {
+  left: auto;
+  right: 70px;
+}
+body.lang-ur .ampersand {
+  font-family: var(--font-urdu);
+  letter-spacing: 0;
+}
+
+/* ── Language Toggle Button ── */
+#lang-btn {
+  position: fixed;
+  top: 20px;
+  right: 70px;
+  z-index: 30;
+  height: 42px;
+  padding: 0 14px;
+  border-radius: 21px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: 0.3s;
+  pointer-events: auto;
+  font-family: var(--font-latin);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  user-select: none;
+}
+#lang-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+#lang-btn .lang-seg {
+  transition: color 0.3s, font-family 0.3s;
+}
+#lang-btn .lang-sep {
+  color: rgba(229,205,171,0.3);
+  font-size: 0.9rem;
+}
+#lang-btn .lang-ur-label {
+  font-family: var(--font-urdu);
+  font-size: 1rem;
+  line-height: 1;
+}
+body.lang-ur #lang-btn {
+  font-family: var(--font-urdu);
+  right: auto;
+  left: 70px;
+}
+body.lang-ur #mbtn {
+  right: auto;
+  left: 20px;
+}
+
+/* Active language highlight */
+body:not(.lang-ur) #lang-btn .active-en { color: var(--accent); }
+body.lang-ur      #lang-btn .active-ur { color: var(--accent); }
+
+/* ── Everything below is original, unchanged ── */
 #scroll-proxy {
   position: absolute; top: 0; left: 0;
   width: 100%; height: 1000vh; z-index: 1;
@@ -71,6 +213,10 @@ body {
   font-size: 0.8rem; letter-spacing: 0.3em; text-transform: uppercase;
   color: var(--text-muted); animation: pulse 2s infinite;
   font-weight: 300; margin-bottom: 40px;
+}
+body.lang-ur .curtain-sub {
+  letter-spacing: 0; font-size: 1.1rem;
+  text-transform: none;
 }
 @keyframes pulse { 0%,100%{opacity:0.4;} 50%{opacity:1;} }
 
@@ -160,7 +306,6 @@ h1, h2 {
 .btn:hover { color: var(--bg-color); }
 .btn:hover::before { transform: scaleX(1); transform-origin: left; }
 
-/* Hosts panel styling */
 .hosts-panel {
   border: 1px solid rgba(229,205,171,0.2);
   background: rgba(5,4,3,0.75);
@@ -183,6 +328,9 @@ h1, h2 {
   color: var(--text-muted);
   margin-bottom: 18px;
 }
+body.lang-ur .hosts-from {
+  text-transform: none; letter-spacing: 0; font-size: 1rem;
+}
 .hosts-name {
   font-family: 'Cinzel', serif;
   font-size: clamp(1.5rem, 4vw, 2.2rem);
@@ -201,6 +349,9 @@ h1, h2 {
   margin: 0 auto 20px;
   font-style: italic;
 }
+body.lang-ur .hosts-message {
+  font-style: normal;
+}
 .hosts-closing {
   font-size: 0.72rem;
   letter-spacing: 0.25em;
@@ -209,8 +360,10 @@ h1, h2 {
   opacity: 0.7;
   margin-top: 10px;
 }
+body.lang-ur .hosts-closing {
+  text-transform: none; letter-spacing: 0; font-size: 1rem;
+}
 
-/* Scroll Prompt */
 .scroll-indicator {
   position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%);
   display: flex; flex-direction: column; align-items: center;
@@ -219,10 +372,10 @@ h1, h2 {
 }
 .scroll-indicator.visible { opacity: 1; visibility: visible; }
 .scroll-text { font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; animation: pulse 2s infinite; }
+body.lang-ur .scroll-text { letter-spacing: 0; font-size: 0.95rem; text-transform: none; font-family: var(--font-urdu); }
 .scroll-arrow { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--accent), transparent); animation: drop 2s infinite; }
 @keyframes drop { 0%{transform:scaleY(0);transform-origin:top;} 50%{transform:scaleY(1);transform-origin:top;} 51%{transform:scaleY(1);transform-origin:bottom;} 100%{transform:scaleY(0);transform-origin:bottom;} }
 
-/* Music button — TOP RIGHT */
 #mbtn {
   position: fixed; top: 20px; right: 20px; z-index: 30;
   width: 42px; height: 42px; border-radius: 50%;
@@ -234,7 +387,6 @@ h1, h2 {
 }
 #mbtn:hover { border-color: var(--accent); color: var(--accent); }
 
-/* Watermark — BOTTOM CENTER */
 #watermark {
   position: fixed;
   bottom: 12px;
@@ -254,13 +406,22 @@ h1, h2 {
 <body>
 
 <audio id="bgm" src="vo.mp3" loop preload="none"></audio>
+
+<!-- Music Button -->
 <button id="mbtn" onclick="toggleMusic()">♪</button>
+
+<!-- Language Toggle Button -->
+<button id="lang-btn" onclick="toggleLanguage()" aria-label="Toggle language">
+  <span class="lang-seg active-en">EN</span>
+  <span class="lang-sep">|</span>
+  <span class="lang-seg lang-ur-label active-ur">اردو</span>
+</button>
 
 <canvas id="webgl-canvas"></canvas>
 <div id="scroll-proxy"></div>
 
 <div class="scroll-indicator" id="scroll-prompt">
-  <div class="scroll-text">Swipe Up</div>
+  <div class="scroll-text" data-i18n="scrollPrompt">Swipe Up</div>
   <div class="scroll-arrow"></div>
 </div>
 
@@ -270,45 +431,45 @@ h1, h2 {
   <section class="exhibit" id="ex-1" style="opacity:1;visibility:visible;">
     <div class="glass-panel">
       <p class="hero-arabic" lang="ar">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
-      <p class="supertag">In the name of Allah, the Most Gracious, the Most Merciful.</p>
+      <p class="supertag" data-i18n="bismillahTrans">In the name of Allah, the Most Gracious, the Most Merciful.</p>
       <div class="divider"></div>
-      <h1 class="hero-title">A Blessed Occasion</h1>
-      <p class="body-text">With hearts filled with joy and blessings from Allah (SWT), we request the pleasure of your company at the engagement ceremony of our beloved eldest son. Your presence and du'as will mean a great deal to us.</p>
+      <h1 class="hero-title" data-i18n="ex1Title">A Blessed Occasion</h1>
+      <p class="body-text" data-i18n="ex1Body">With hearts filled with joy and blessings from Allah (SWT), we request the pleasure of your company at the engagement ceremony of our beloved eldest son. Your presence and du'as will mean a great deal to us.</p>
     </div>
   </section>
 
   <!-- Exhibit 2 -->
   <section class="exhibit" id="ex-2">
     <div class="glass-panel">
-      <p class="supertag">Two Souls, One Destiny</p>
-      <h2 class="couple-names">Khaja Mujtaba Ahmed</h2>
-      <div class="ampersand">With</div>
-      <h2 class="couple-names">Shaista Fatima</h2>
+      <p class="supertag" data-i18n="ex2Tag">Two Souls, One Destiny</p>
+      <h2 class="couple-names" data-i18n="groomName">Khaja Mujtaba Ahmed</h2>
+      <div class="ampersand" data-i18n="withWord">With</div>
+      <h2 class="couple-names" data-i18n="brideName">Shaista Fatima</h2>
     </div>
   </section>
 
   <!-- Exhibit 3 -->
   <section class="exhibit" id="ex-3">
     <div class="glass-panel">
-      <p class="supertag">The Ceremony</p>
-      <h2 style="font-size:clamp(2.5rem,6vw,4rem);margin-bottom:30px;">Mangni (Engagement)</h2>
+      <p class="supertag" data-i18n="ex3Tag">The Ceremony</p>
+      <h2 style="font-size:clamp(2.5rem,6vw,4rem);margin-bottom:30px;" data-i18n="ceremonyName">Mangni (Engagement)</h2>
       <div class="details-grid">
         <div>
-          <div class="detail-label">Date</div>
-          <div class="detail-val">Friday, 29 May 2026</div>
+          <div class="detail-label" data-i18n="dateLabel">Date</div>
+          <div class="detail-val" data-i18n="dateVal">Friday, 29 May 2026</div>
         </div>
         <div>
-          <div class="detail-label">Time</div>
-          <div class="detail-val">8:00 PM Onwards</div>
+          <div class="detail-label" data-i18n="timeLabel">Time</div>
+          <div class="detail-val" data-i18n="timeVal">8:00 PM Onwards</div>
         </div>
         <div>
-          <div class="detail-label">Venue</div>
-          <div class="detail-val">MKM Convention Hall</div>
+          <div class="detail-label" data-i18n="venueLabel">Venue</div>
+          <div class="detail-val" data-i18n="venueVal">MKM Convention Hall</div>
         </div>
         <div>
-          <div class="detail-label">Location</div>
-          <div class="detail-val" style="margin-bottom:10px;">Hafiz Baba Nagar, Hyderabad</div>
-          <a href="https://www.google.com/maps/place/MKM+CONVENTION+HALL/@17.3299766,78.490602,17z/data=!3m1!4b1!4m6!3m5!1s0x3bcba3d05583143b:0x26464339b54af205!8m2!3d17.3299766!4d78.490602!16s%2Fg%2F11qbsbb0l3?entry=ttu&g_ep=EgoyMDI2MDQyNy4wIKXMDSoASAFQAw%3D%3D" target="_blank" style="color:var(--accent);text-decoration:none;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;border-bottom:1px solid var(--accent);padding-bottom:2px;">Get Directions →</a>
+          <div class="detail-label" data-i18n="locationLabel">Location</div>
+          <div class="detail-val" style="margin-bottom:10px;" data-i18n="locationVal">Hafiz Baba Nagar, Hyderabad</div>
+          <a href="https://www.google.com/maps/place/MKM+CONVENTION+HALL/@17.3299766,78.490602,17z/data=!3m1!4b1!4m6!3m5!1s0x3bcba3d05583143b:0x26464339b54af205!8m2!3d17.3299766!4d78.490602!16s%2Fg%2F11qbsbb0l3?entry=ttu&g_ep=EgoyMDI2MDQyNy4wIKXMDSoASAFQAw%3D%3D" target="_blank" style="color:var(--accent);text-decoration:none;font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;border-bottom:1px solid var(--accent);padding-bottom:2px;" data-i18n="directionsLink">Get Directions →</a>
         </div>
       </div>
     </div>
@@ -317,13 +478,12 @@ h1, h2 {
   <!-- Exhibit 4 — Countdown -->
   <section class="exhibit" id="ex-4">
     <div class="glass-panel">
-      <!-- <p class="supertag">Counting Down</p> -->
-      <h2 style="font-size:clamp(2.5rem,8vw,5rem);text-shadow:0 4px 15px rgba(0,0,0,0.8);">The Beginning Awaits</h2>
+      <h2 style="font-size:clamp(2.5rem,8vw,5rem);text-shadow:0 4px 15px rgba(0,0,0,0.8);" data-i18n="countdownTitle">The Beginning Awaits</h2>
       <div class="cd-wrap">
-        <div class="cd-box"><div class="cd-num" id="cd-d">00</div><div class="cd-lbl">Days</div></div>
-        <div class="cd-box"><div class="cd-num" id="cd-h">00</div><div class="cd-lbl">Hours</div></div>
-        <div class="cd-box"><div class="cd-num" id="cd-m">00</div><div class="cd-lbl">Mins</div></div>
-        <div class="cd-box"><div class="cd-num" id="cd-s">00</div><div class="cd-lbl">Secs</div></div>
+        <div class="cd-box"><div class="cd-num" id="cd-d">00</div><div class="cd-lbl" data-i18n="cdDays">Days</div></div>
+        <div class="cd-box"><div class="cd-num" id="cd-h">00</div><div class="cd-lbl" data-i18n="cdHours">Hours</div></div>
+        <div class="cd-box"><div class="cd-num" id="cd-m">00</div><div class="cd-lbl" data-i18n="cdMins">Mins</div></div>
+        <div class="cd-box"><div class="cd-num" id="cd-s">00</div><div class="cd-lbl" data-i18n="cdSecs">Secs</div></div>
       </div>
     </div>
   </section>
@@ -332,48 +492,48 @@ h1, h2 {
   <section class="exhibit" id="ex-5">
     <div class="hosts-panel">
       <div class="hosts-ornament">✦ ✦ ✦</div>
-      <p class="hosts-from">This Invitation is Presented by</p>
-      <div class="hosts-name">Mr. &amp; Mrs. Khaja Ahmeduddin Ahmed</div>
+      <p class="hosts-from" data-i18n="hostsFrom">This Invitation is Presented by</p>
+      <div class="hosts-name" data-i18n="hostsName">Mr. &amp; Mrs. Khaja Ahmeduddin Ahmed</div>
       <div class="divider"></div>
-      <p class="hosts-message">
+      <p class="hosts-message" data-i18n="hostsMessage">
         With immense gratitude to Allah (SWT) and overflowing joy in our hearts, we are honoured to invite you to witness this beautiful beginning in the life of our beloved son.<br><br>
         Your presence, your prayers, and your blessings are the greatest gift you could bestow upon our family on this auspicious occasion. We look forward to sharing this cherished moment with you.
       </p>
       <div class="divider"></div>
-      <p class="hosts-closing">— With love &amp; du'as, the Ahmed Family</p>
+      <p class="hosts-closing" data-i18n="hostsClosing">— With love &amp; du'as, the Ahmed Family</p>
     </div>
   </section>
 
   <!-- Exhibit 6 — Wishes -->
   <section class="exhibit" id="ex-6">
     <div class="glass-panel">
-      <p class="supertag">Your Blessings</p>
-      <h2 style="font-size:clamp(2.5rem,6vw,4rem);">Leave a Message</h2>
-      <p class="body-text" style="margin-bottom:15px;font-size:0.9rem;">Send your heartfelt wishes directly to the couple.</p>
-      <input type="text" id="w-name" class="form-input" placeholder="Your Full Name">
-      <textarea id="w-msg" class="form-area" placeholder="Your wishes..."></textarea>
-      <button class="btn" onclick="sendWish()">Send Your Blessings</button>
+      <p class="supertag" data-i18n="wishesTag">Your Blessings</p>
+      <h2 style="font-size:clamp(2.5rem,6vw,4rem);" data-i18n="wishesTitle">Leave a Message</h2>
+      <p class="body-text" style="margin-bottom:15px;font-size:0.9rem;" data-i18n="wishesBody">Send your heartfelt wishes directly to the couple.</p>
+      <input type="text" id="w-name" class="form-input" data-i18n-placeholder="namePlaceholder" placeholder="Your Full Name">
+      <textarea id="w-msg" class="form-area" data-i18n-placeholder="msgPlaceholder" placeholder="Your wishes..."></textarea>
+      <button class="btn" onclick="sendWish()" data-i18n="sendBtn">Send Your Blessings</button>
     </div>
   </section>
 
   <!-- Exhibit 7 — Make it yours -->
   <section class="exhibit" id="ex-7">
     <div class="glass-panel" style="text-align:center;border:1px solid rgba(229,205,171,0.15);box-shadow:none;padding:40px 20px;background:rgba(0,0,0,0.3);max-width:420px;backdrop-filter:blur(4px);">
-      <p class="supertag">Make It Yours</p>
-      <h2 style="font-size:clamp(1.6rem,5vw,2.2rem);margin-bottom:10px;font-weight:400;letter-spacing:0.05em;color:var(--accent);">
+      <p class="supertag" data-i18n="promoTag">Make It Yours</p>
+      <h2 style="font-size:clamp(1.6rem,5vw,2.2rem);margin-bottom:10px;font-weight:400;letter-spacing:0.05em;color:var(--accent);" data-i18n="promoTitle">
         Your Story Deserves This
       </h2>
-      <p class="body-text" style="font-size:0.85rem;margin-bottom:25px;color:var(--text-muted);">
+      <p class="body-text" style="font-size:0.85rem;margin-bottom:25px;color:var(--text-muted);" data-i18n="promoSub">
         Turn your special moment into a cinematic digital experience.
       </p>
-      <p class="body-text" style="font-size:0.80rem;margin-bottom:20px;color:rgba(255,255,255,0.5);">
-        Because some moments deserve more than a screenshot they deserve an experience.
+      <p class="body-text" style="font-size:0.80rem;margin-bottom:20px;color:rgba(255,255,255,0.5);" data-i18n="promoFootnote">
+        Because some moments deserve more than a screenshot — they deserve an experience.
       </p>
-      <a href="https://wa.me/917680097715?text=Hi%20Shamsuddin,%20I%20want%20a%20premium%20invitation%20website" target="_blank" class="btn" style="display:inline-block;text-decoration:none;padding:12px 30px;font-size:0.75rem;background:transparent;border:1px solid rgba(229,205,171,0.4);letter-spacing:0.15em;border-radius:4px;">
+      <a href="https://wa.me/917680097715?text=Hi%20Shamsuddin,%20I%20want%20a%20premium%20invitation%20website" target="_blank" class="btn" style="display:inline-block;text-decoration:none;padding:12px 30px;font-size:0.75rem;background:transparent;border:1px solid rgba(229,205,171,0.4);letter-spacing:0.15em;border-radius:4px;" data-i18n="promoBtn">
         Create My Invitation
       </a>
-      <p style="margin-top:15px;font-size:0.7rem;color:var(--text-muted);">
-        Limited bookings &bull; Custom designed for every couple
+      <p style="margin-top:15px;font-size:0.7rem;color:var(--text-muted);" data-i18n="promoNote">
+        Limited bookings · Custom designed for every couple
       </p>
     </div>
   </section>
@@ -384,8 +544,8 @@ h1, h2 {
 
 <!-- Curtain -->
 <div id="curtain" onclick="enterGallery()">
-  <h1 class="curtain-title">Mujtaba & Shaista</h1>
-  <p class="curtain-sub">Tap anywhere to enter</p>
+  <h1 class="curtain-title" data-i18n="curtainTitle">Mujtaba &amp; Shaista</h1>
+  <p class="curtain-sub" data-i18n="curtainSub">Tap anywhere to enter</p>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -393,15 +553,201 @@ h1, h2 {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
 <script>
+/* ═══════════════════════════════════════════════════════════════
+   TRANSLATION DICTIONARY
+   All strings in both languages. Add / edit here only.
+═══════════════════════════════════════════════════════════════ */
+const translations = {
+  en: {
+    curtainTitle:    "Mujtaba & Shaista",
+    curtainSub:      "Tap anywhere to enter",
+    scrollPrompt:    "Swipe Up",
+    scrollThanks:    "Thank You",
+
+    // Exhibit 1
+    bismillahTrans:  "In the name of Allah, the Most Gracious, the Most Merciful.",
+    ex1Title:        "A Blessed Occasion",
+    ex1Body:         "With hearts filled with joy and blessings from Allah (SWT), we request the pleasure of your company at the engagement ceremony of our beloved eldest son. Your presence and du'as will mean a great deal to us.",
+
+    // Exhibit 2
+    ex2Tag:          "Two Souls, One Destiny",
+    groomName:       "Khaja Mujtaba Ahmed",
+    withWord:        "With",
+    brideName:       "Shaista Fatima",
+
+    // Exhibit 3
+    ex3Tag:          "The Ceremony",
+    ceremonyName:    "Mangni (Engagement)",
+    dateLabel:       "Date",
+    dateVal:         "Friday, 29 May 2026",
+    timeLabel:       "Time",
+    timeVal:         "8:00 PM Onwards",
+    venueLabel:      "Venue",
+    venueVal:        "MKM Convention Hall",
+    locationLabel:   "Location",
+    locationVal:     "Hafiz Baba Nagar, Hyderabad",
+    directionsLink:  "Get Directions →",
+
+    // Exhibit 4 — Countdown
+    countdownTitle:  "The Beginning Awaits",
+    cdDays:          "Days",
+    cdHours:         "Hours",
+    cdMins:          "Mins",
+    cdSecs:          "Secs",
+
+    // Exhibit 5 — Hosts
+    hostsFrom:       "This Invitation is Presented by",
+    hostsName:       "Mr. & Mrs. Khaja Ahmeduddin Ahmed",
+    hostsMessage:    "With immense gratitude to Allah (SWT) and overflowing joy in our hearts, we are honoured to invite you to witness this beautiful beginning in the life of our beloved son.<br><br>Your presence, your prayers, and your blessings are the greatest gift you could bestow upon our family on this auspicious occasion. We look forward to sharing this cherished moment with you.",
+    hostsClosing:    "— With love & du'as, the Ahmed Family",
+
+    // Exhibit 6 — Wishes
+    wishesTag:       "Your Blessings",
+    wishesTitle:     "Leave a Message",
+    wishesBody:      "Send your heartfelt wishes directly to the couple.",
+    namePlaceholder: "Your Full Name",
+    msgPlaceholder:  "Your wishes...",
+    sendBtn:         "Send Your Blessings",
+
+    // Exhibit 7 — Promo
+    promoTag:        "Make It Yours",
+    promoTitle:      "Your Story Deserves This",
+    promoSub:        "Turn your special moment into a cinematic digital experience.",
+    promoFootnote:   "Because some moments deserve more than a screenshot — they deserve an experience.",
+    promoBtn:        "Create My Invitation",
+    promoNote:       "Limited bookings · Custom designed for every couple",
+  },
+
+  ur: {
+    curtainTitle:    "مجتبیٰ اور شائستہ",
+    curtainSub:      "داخل ہونے کے لیے کہیں بھی ٹچ کریں",
+    scrollPrompt:    "اوپر سوائپ کریں",
+    scrollThanks:    "شکریہ",
+
+    // Exhibit 1
+    bismillahTrans:  "اللہ کے نام سے جو بڑا مہربان، نہایت رحم والا ہے۔",
+    ex1Title:        "ایک بابرکت موقع",
+    ex1Body:         "اللہ سبحانہ وتعالیٰ کے فضل و کرم اور خوشی سے بھرے دلوں کے ساتھ، ہم آپ کو اپنے لاڈلے بڑے بیٹے کی منگنی کی تقریب میں شرکت کی دعوت دیتے ہیں۔ آپ کی موجودگی اور دعائیں ہمارے لیے انمول تحفہ ہوں گی۔",
+
+    // Exhibit 2
+    ex2Tag:          "دو روحیں، ایک مقدر",
+    groomName:       "خواجہ مجتبیٰ احمد",
+    withWord:        "اور",
+    brideName:       "شائستہ فاطمہ",
+
+    // Exhibit 3
+    ex3Tag:          "تقریب",
+    ceremonyName:    "منگنی",
+    dateLabel:       "تاریخ",
+    dateVal:         "جمعہ، ۲۹ مئی ۲۰۲۶",
+    timeLabel:       "وقت",
+    timeVal:         "رات ۸ بجے سے",
+    venueLabel:      "مقام",
+    venueVal:        "ایم کے ایم کنونشن ہال",
+    locationLabel:   "پتہ",
+    locationVal:     "حافظ بابا نگر، حیدرآباد",
+    directionsLink:  "راستہ دیکھیں ←",
+
+    // Exhibit 4 — Countdown
+    countdownTitle:  "آغاز کا انتظار",
+    cdDays:          "دن",
+    cdHours:         "گھنٹے",
+    cdMins:          "منٹ",
+    cdSecs:          "سیکنڈ",
+
+    // Exhibit 5 — Hosts
+    hostsFrom:       "یہ دعوت نامہ پیش کیا جا رہا ہے",
+    hostsName:       "جناب اور بیگم خواجہ احمد الدین احمد",
+    hostsMessage:    "اللہ سبحانہ وتعالیٰ کا لاکھ لاکھ شکر ادا کرتے ہوئے اور دلوں میں خوشی سموئے، ہمیں یہ اعزاز حاصل ہے کہ آپ کو اپنے لاڈلے بیٹے کی زندگی کے اس خوبصورت آغاز کا گواہ بننے کی دعوت دیں۔<br><br>آپ کی موجودگی، آپ کی دعائیں اور آپ کا آشیرواد — یہی اس مبارک موقع پر ہمارے خاندان کو سب سے بڑا تحفہ ہے۔ ہم اس محبت بھرے لمحے کو آپ کے ساتھ بانٹنے کے منتظر ہیں۔",
+    hostsClosing:    "— محبت اور دعاؤں کے ساتھ، احمد خاندان",
+
+    // Exhibit 6 — Wishes
+    wishesTag:       "آپ کی دعائیں",
+    wishesTitle:     "پیغام چھوڑیں",
+    wishesBody:      "جوڑے کو اپنی دلی مبارکباد سیدھی بھیجیں۔",
+    namePlaceholder: "آپ کا پورا نام",
+    msgPlaceholder:  "آپ کی مبارکباد...",
+    sendBtn:         "مبارکباد بھیجیں",
+
+    // Exhibit 7 — Promo
+    promoTag:        "اپنا بنائیں",
+    promoTitle:      "آپ کی کہانی اس کی مستحق ہے",
+    promoSub:        "اپنے خاص لمحے کو ایک سینماٹک ڈیجیٹل تجربے میں بدلیں۔",
+    promoFootnote:   "کیونکہ کچھ لمحے صرف اسکرین شاٹ سے زیادہ کے حقدار ہوتے ہیں — وہ ایک تجربہ مانگتے ہیں۔",
+    promoBtn:        "میرا دعوت نامہ بنائیں",
+    promoNote:       "محدود بکنگ · ہر جوڑے کے لیے خاص ڈیزائن",
+  }
+};
+
+/* ═══════════════════════════════════════════════════════════════
+   LANGUAGE ENGINE
+═══════════════════════════════════════════════════════════════ */
+let currentLang = localStorage.getItem('inviteLang') || 'en';
+
+function applyLanguage(lang) {
+  currentLang = lang;
+  localStorage.setItem('inviteLang', lang);
+
+  const t = translations[lang];
+  const isUr = lang === 'ur';
+
+  // 1. html element dir + lang attribute
+  document.documentElement.lang = lang;
+  document.documentElement.dir = isUr ? 'rtl' : 'ltr';
+
+  // 2. body class drives all CSS RTL overrides
+  document.body.classList.toggle('lang-ur', isUr);
+
+  // 3. Inject text for data-i18n elements
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key] !== undefined) el.innerHTML = t[key];
+  });
+
+  // 4. Inject placeholders for data-i18n-placeholder elements
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    if (t[key] !== undefined) el.placeholder = t[key];
+  });
+
+  // 5. Update scroll prompt text (if already changed to "thanks" state, respect that)
+  const scrollTextEl = document.querySelector('.scroll-text');
+  if (scrollTextEl && scrollTextEl.getAttribute('data-i18n') === 'scrollPrompt') {
+    scrollTextEl.textContent = t.scrollPrompt;
+  }
+}
+
+function toggleLanguage() {
+  applyLanguage(currentLang === 'en' ? 'ur' : 'en');
+}
+
+// Apply on load (respects localStorage)
+document.addEventListener('DOMContentLoaded', () => {
+  if (currentLang !== 'en') applyLanguage(currentLang);
+});
+
+/* ═══════════════════════════════════════════════════════════════
+   MUSIC
+═══════════════════════════════════════════════════════════════ */
 let musicPlaying = false;
 function toggleMusic() {
   const bgm = document.getElementById('bgm');
   const btn = document.getElementById('mbtn');
-  if (musicPlaying) { bgm.pause(); btn.style.color = 'var(--text-muted)'; btn.style.borderColor = 'var(--glass-border)'; }
-  else { bgm.play().catch(()=>{}); btn.style.color = 'var(--accent)'; btn.style.borderColor = 'var(--accent)'; }
+  if (musicPlaying) {
+    bgm.pause();
+    btn.style.color = 'var(--text-muted)';
+    btn.style.borderColor = 'var(--glass-border)';
+  } else {
+    bgm.play().catch(()=>{});
+    btn.style.color = 'var(--accent)';
+    btn.style.borderColor = 'var(--accent)';
+  }
   musicPlaying = !musicPlaying;
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   GALLERY ENTRY
+═══════════════════════════════════════════════════════════════ */
 function enterGallery() {
   document.getElementById('curtain').classList.add('hidden');
   toggleMusic();
@@ -409,6 +755,9 @@ function enterGallery() {
   setTimeout(() => gsap.to("#ui-layer", { autoAlpha: 1, duration: 1.2, ease: "power2.out" }), 500);
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   COUNTDOWN
+═══════════════════════════════════════════════════════════════ */
 const targetDate = new Date('2026-05-29T20:00:00');
 function updateCD() {
   const diff = Math.max(0, targetDate - new Date());
@@ -419,15 +768,23 @@ function updateCD() {
 }
 setInterval(updateCD, 1000); updateCD();
 
+/* ═══════════════════════════════════════════════════════════════
+   SEND WISH
+═══════════════════════════════════════════════════════════════ */
 function sendWish() {
   const name = document.getElementById('w-name').value.trim();
-  const msg = document.getElementById('w-msg').value.trim();
-  if (!name) return alert('Please enter your name.');
+  const msg  = document.getElementById('w-msg').value.trim();
+  if (!name) {
+    alert(currentLang === 'ur' ? 'براہ کرم اپنا نام درج کریں۔' : 'Please enter your name.');
+    return;
+  }
   const text = `✨ Engagement Wishes ✨\n\nFrom: ${name}\nMessage: ${msg || '(No message)'}`;
   window.open(`https://wa.me/971506774479?text=${encodeURIComponent(text)}`, '_blank');
 }
 
-// --- 3D Crystal Tunnel ---
+/* ═══════════════════════════════════════════════════════════════
+   THREE.JS — 3D Crystal Tunnel (unchanged)
+═══════════════════════════════════════════════════════════════ */
 const canvas = document.getElementById('webgl-canvas');
 const scene = new THREE.Scene();
 scene.background = new THREE.Color('#050403');
@@ -496,7 +853,6 @@ for (let i = 0; i < 1800; i++) {
 }
 scene.add(crystalMesh);
 
-// --- Floating particles (slow, gentle drift — no fast streaks) ---
 const pCount = 500;
 const pGeo = new THREE.BufferGeometry();
 const pPos = new Float32Array(pCount*3);
@@ -525,8 +881,6 @@ const particles = new THREE.Points(pGeo, new THREE.PointsMaterial({
 }));
 scene.add(particles);
 
-// Fast streaks REMOVED — replaced with nothing. Particles alone give ambient atmosphere.
-
 window.addEventListener('resize', () => {
   camera.aspect = window.innerWidth/window.innerHeight;
   camera.updateProjectionMatrix();
@@ -536,9 +890,7 @@ window.addEventListener('resize', () => {
 function animate() {
   requestAnimationFrame(animate);
   const t = Date.now()*0.0005;
-
   crystalMesh.rotation.y = Math.sin(t)*0.01;
-
   const positions = particles.geometry.attributes.position.array;
   for (let i = 0; i < pCount; i++) {
     positions[i*3]   += pVel[i*3];
@@ -550,12 +902,13 @@ function animate() {
     if (positions[i*3+1] < 0) { positions[i*3+1] = 0; pVel[i*3+1] *= -1; }
   }
   particles.geometry.attributes.position.needsUpdate = true;
-
   renderer.render(scene, camera);
 }
 animate();
 
-// --- GSAP ---
+/* ═══════════════════════════════════════════════════════════════
+   GSAP SCROLL (unchanged, safe from lang toggle)
+═══════════════════════════════════════════════════════════════ */
 gsap.registerPlugin(ScrollTrigger);
 gsap.to(camera.position, {
   z: -pathLength+10, ease:"none",
@@ -563,23 +916,23 @@ gsap.to(camera.position, {
 });
 
 const exhibits = document.querySelectorAll('.exhibit');
-const numExhibits = exhibits.length; // 7
+const numExhibits = exhibits.length;
 
 gsap.fromTo("#ex-1", { autoAlpha:1, y:0 }, {
   autoAlpha:0, y:-30, ease:"power1.in",
   scrollTrigger: { trigger:"#scroll-proxy", start:"top top", end:"top+=10% top", scrub:true }
 });
 
-// Zones for exhibits 2–7 (6 total)
-// Last exhibit gets a wider zone and stays fully visible once reached
 const zones = [
   { start: 9,  end: 22 },
   { start: 25, end: 38 },
   { start: 41, end: 54 },
   { start: 57, end: 70 },
   { start: 73, end: 82 },
-  { start: 85, end: 100 }  // last exhibit: enters at 85%, stays visible to end
+  { start: 85, end: 100 }
 ];
+
+const t = translations[currentLang];
 
 for (let i = 1; i < numExhibits; i++) {
   const ex = exhibits[i];
@@ -596,7 +949,9 @@ for (let i = 1; i < numExhibits; i++) {
       onEnter: () => {
         ex.classList.add("active");
         if (isLast) {
-          document.querySelector('.scroll-text').innerText = "Thanks";
+          const st = document.querySelector('.scroll-text');
+          st.textContent = translations[currentLang].scrollThanks;
+          st.removeAttribute('data-i18n'); // prevent overwrite by applyLanguage
           document.querySelector('.scroll-arrow').style.display = "none";
         }
       },
@@ -605,7 +960,9 @@ for (let i = 1; i < numExhibits; i++) {
       onLeaveBack: () => {
         ex.classList.remove("active");
         if (isLast) {
-          document.querySelector('.scroll-text').innerText = "Scroll Down";
+          const st = document.querySelector('.scroll-text');
+          st.setAttribute('data-i18n', 'scrollPrompt');
+          st.textContent = translations[currentLang].scrollPrompt;
           document.querySelector('.scroll-arrow').style.display = "block";
         }
       }
@@ -613,10 +970,9 @@ for (let i = 1; i < numExhibits; i++) {
   });
 
   if (isLast) {
-    // Fade in and STAY — no fade out at the end
     tl.fromTo(ex, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3, ease: "none" })
       .fromTo(panel, { y: 40, scale: 0.95 }, { y: 0, scale: 1, duration: 0.3, ease: "power2.out" }, "<")
-      .to(ex, { autoAlpha: 1, duration: 0.7 }); // hold fully visible for rest of scroll
+      .to(ex, { autoAlpha: 1, duration: 0.7 });
   } else {
     tl.fromTo(ex, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.2, ease: "none" })
       .fromTo(panel, { y: 40, scale: 0.95 }, { y: 0, scale: 1, duration: 0.2, ease: "none" }, "<")
