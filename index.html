@@ -100,14 +100,12 @@ body.lang-ur .details-grid {
   }
 }
 body.lang-ur .cd-num {
-  font-family: var(--font-latin); /* keep numerals latin for clarity */
+  font-family: var(--font-latin);
 }
-/* Flip music button placement on RTL */
 body.lang-ur #mbtn {
   right: auto;
   left: 20px;
 }
-/* Keep lang button on opposite side */
 body.lang-ur #lang-btn {
   left: auto;
   right: 70px;
@@ -117,12 +115,233 @@ body.lang-ur .ampersand {
   letter-spacing: 0;
 }
 
+/* ════════════════════════════════════════════
+   NAME ENTRY SPLASH SCREEN
+════════════════════════════════════════════ */
+#name-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: var(--bg-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  text-align: center;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+#name-splash.hiding {
+  opacity: 0;
+  transform: scale(1.04);
+  pointer-events: none;
+}
+
+#name-splash.gone { display: none; }
+
+.splash-arabic {
+  font-family: 'Lateef', serif;
+  font-size: 1.5rem;
+  color: var(--accent);
+  margin-bottom: 4px;
+  opacity: 0.75;
+  text-shadow: 0 0 16px rgba(229,205,171,0.35);
+}
+
+.splash-tagline {
+  font-size: 0.58rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+  font-weight: 300;
+}
+
+.splash-card {
+  background: rgba(15, 12, 9, 0.75);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 14px;
+  padding: 22px 22px 20px;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.8), inset 0 1px 0 rgba(229,205,171,0.07);
+}
+
+.splash-couple-tag {
+  font-size: 0.55rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+  font-weight: 300;
+}
+
+.splash-name-line {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1.15rem, 4.5vw, 1.6rem);
+  color: #fff;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 2px;
+  text-shadow: 0 0 12px rgba(255,255,255,0.18);
+}
+
+.splash-amp {
+  font-family: 'Cinzel', serif;
+  color: var(--accent);
+  font-size: 1.05rem;
+  margin: 1px 0;
+}
+
+.splash-divider {
+  width: 35px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  margin: 14px auto 14px;
+  opacity: 0.45;
+}
+
+.splash-card-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1rem, 4vw, 1.35rem);
+  color: var(--accent);
+  font-weight: 400;
+  margin-bottom: 6px;
+  line-height: 1.2;
+}
+
+.splash-card-sub {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-weight: 300;
+  margin-bottom: 14px;
+  line-height: 1.5;
+}
+
+.splash-name-input {
+  width: 100%;
+  background: rgba(0,0,0,0.5);
+  border: 1px solid rgba(229,205,171,0.2);
+  color: var(--text-main);
+  padding: 12px 16px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 300;
+  outline: none;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  text-align: center;
+  letter-spacing: 0.04em;
+  margin-bottom: 12px;
+}
+
+.splash-name-input::placeholder {
+  color: rgba(200,187,169,0.38);
+  letter-spacing: 0.06em;
+}
+
+.splash-name-input:focus {
+  border-color: rgba(229,205,171,0.5);
+  background: rgba(0,0,0,0.65);
+  box-shadow: 0 0 0 3px rgba(229,205,171,0.05);
+}
+
+.splash-btn-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.splash-btn-enter {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  padding: 12px 24px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 0.72rem;
+  transition: all 0.32s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.splash-btn-enter::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.32s ease;
+  z-index: -1;
+}
+
+.splash-btn-enter:hover { color: var(--bg-color); }
+.splash-btn-enter:hover::before { transform: scaleX(1); transform-origin: left; }
+
+.splash-btn-skip {
+  background: transparent;
+  color: rgba(200,187,169,0.35);
+  border: none;
+  padding: 6px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 300;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.splash-btn-skip:hover { color: var(--text-muted); }
+
+/* Urdu splash overrides */
+body.lang-ur .splash-card-title,
+body.lang-ur .splash-card-sub,
+body.lang-ur .splash-tagline,
+body.lang-ur .splash-couple-tag,
+body.lang-ur .splash-btn-skip,
+body.lang-ur .splash-btn-enter,
+body.lang-ur .splash-name-line {
+  font-family: var(--font-urdu);
+  letter-spacing: 0;
+}
+body.lang-ur .splash-name-input {
+  font-family: var(--font-urdu);
+  direction: rtl;
+  text-align: right;
+}
+
+/* Personalised greeting inside ex-1 */
+#guest-greeting {
+  display: none;
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1rem, 3vw, 1.4rem);
+  color: rgba(229,205,171,0.9);
+  margin-bottom: 12px;
+  letter-spacing: 0.04em;
+  text-shadow: 0 0 12px rgba(229,205,171,0.25);
+  animation: fadeInDown 1.2s ease both;
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 /* ── Language Toggle Button ── */
 #lang-btn {
   position: fixed;
   top: 20px;
   right: 70px;
-  z-index: 30;
+  z-index: 300;
   height: 42px;
   padding: 0 14px;
   border-radius: 21px;
@@ -149,33 +368,14 @@ body.lang-ur .ampersand {
   border-color: var(--accent);
   color: var(--accent);
 }
-#lang-btn .lang-seg {
-  transition: color 0.3s, font-family 0.3s;
-}
-#lang-btn .lang-sep {
-  color: rgba(229,205,171,0.3);
-  font-size: 0.9rem;
-}
-#lang-btn .lang-ur-label {
-  font-family: var(--font-urdu);
-  font-size: 1rem;
-  line-height: 1;
-}
-body.lang-ur #lang-btn {
-  font-family: var(--font-urdu);
-  right: auto;
-  left: 70px;
-}
-body.lang-ur #mbtn {
-  right: auto;
-  left: 20px;
-}
-
-/* Active language highlight */
+#lang-btn .lang-seg { transition: color 0.3s, font-family 0.3s; }
+#lang-btn .lang-sep { color: rgba(229,205,171,0.3); font-size: 0.9rem; }
+#lang-btn .lang-ur-label { font-family: var(--font-urdu); font-size: 1rem; line-height: 1; }
+body.lang-ur #lang-btn { font-family: var(--font-urdu); right: auto; left: 70px; }
+body.lang-ur #mbtn { right: auto; left: 20px; }
 body:not(.lang-ur) #lang-btn .active-en { color: var(--accent); }
 body.lang-ur      #lang-btn .active-ur { color: var(--accent); }
 
-/* ── Everything below is original, unchanged ── */
 #scroll-proxy {
   position: absolute; top: 0; left: 0;
   width: 100%; height: 1000vh; z-index: 1;
@@ -193,31 +393,6 @@ body.lang-ur      #lang-btn .active-ur { color: var(--accent); }
   opacity: 0; visibility: hidden;
 }
 
-#curtain {
-  position: fixed; inset: 0; z-index: 100;
-  background: var(--bg-color);
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  transition: opacity 1.5s ease, transform 1.5s ease;
-  pointer-events: auto; cursor: pointer;
-  padding: 20px; text-align: center;
-}
-#curtain.hidden { opacity: 0; transform: scale(1.05); pointer-events: none; }
-.curtain-title {
-  font-family: 'Cinzel', serif;
-  font-size: clamp(2.5rem, 8vw, 6rem);
-  color: var(--accent); margin-bottom: 20px;
-  text-shadow: 0 0 20px rgba(229, 205, 171, 0.3);
-  font-weight: 600; line-height: 1.2;
-}
-.curtain-sub {
-  font-size: 0.8rem; letter-spacing: 0.3em; text-transform: uppercase;
-  color: var(--text-muted); animation: pulse 2s infinite;
-  font-weight: 300; margin-bottom: 40px;
-}
-body.lang-ur .curtain-sub {
-  letter-spacing: 0; font-size: 1.1rem;
-  text-transform: none;
-}
 @keyframes pulse { 0%,100%{opacity:0.4;} 50%{opacity:1;} }
 
 .exhibit {
@@ -272,6 +447,7 @@ h1, h2 {
 @media(max-width: 600px){
   .details-grid { grid-template-columns: 1fr; gap: 15px; text-align: center; }
   .glass-panel { padding: 30px 15px; }
+  .splash-card { padding: 35px 22px 30px; }
 }
 .detail-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--text-muted); margin-bottom: 4px; font-weight: 400; }
 .detail-val { font-size: 1.1rem; color: #fff; font-family: 'Cinzel', serif; font-weight: 600; }
@@ -315,54 +491,27 @@ h1, h2 {
   width: 100%;
 }
 .hosts-ornament {
-  font-size: 1.6rem;
-  color: var(--accent);
-  opacity: 0.5;
-  margin-bottom: 8px;
-  letter-spacing: 0.3em;
+  font-size: 1.6rem; color: var(--accent); opacity: 0.5; margin-bottom: 8px; letter-spacing: 0.3em;
 }
 .hosts-from {
-  font-size: 0.62rem;
-  letter-spacing: 0.45em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: 18px;
+  font-size: 0.62rem; letter-spacing: 0.45em; text-transform: uppercase;
+  color: var(--text-muted); margin-bottom: 18px;
 }
-body.lang-ur .hosts-from {
-  text-transform: none; letter-spacing: 0; font-size: 1rem;
-}
+body.lang-ur .hosts-from { text-transform: none; letter-spacing: 0; font-size: 1rem; }
 .hosts-name {
-  font-family: 'Cinzel', serif;
-  font-size: clamp(1.5rem, 4vw, 2.2rem);
-  color: #fff;
-  font-weight: 600;
-  margin-bottom: 28px;
-  text-shadow: 0 0 20px rgba(229,205,171,0.2);
-  line-height: 1.3;
+  font-family: 'Cinzel', serif; font-size: clamp(1.5rem, 4vw, 2.2rem); color: #fff;
+  font-weight: 600; margin-bottom: 28px; text-shadow: 0 0 20px rgba(229,205,171,0.2); line-height: 1.3;
 }
 .hosts-message {
-  font-size: clamp(0.85rem, 1.8vw, 1rem);
-  color: rgba(253,250,246,0.75);
-  line-height: 1.85;
-  font-weight: 300;
-  max-width: 520px;
-  margin: 0 auto 20px;
-  font-style: italic;
+  font-size: clamp(0.85rem, 1.8vw, 1rem); color: rgba(253,250,246,0.75); line-height: 1.85;
+  font-weight: 300; max-width: 520px; margin: 0 auto 20px; font-style: italic;
 }
-body.lang-ur .hosts-message {
-  font-style: normal;
-}
+body.lang-ur .hosts-message { font-style: normal; }
 .hosts-closing {
-  font-size: 0.72rem;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--accent);
-  opacity: 0.7;
-  margin-top: 10px;
+  font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--accent); opacity: 0.7; margin-top: 10px;
 }
-body.lang-ur .hosts-closing {
-  text-transform: none; letter-spacing: 0; font-size: 1rem;
-}
+body.lang-ur .hosts-closing { text-transform: none; letter-spacing: 0; font-size: 1rem; }
 
 .scroll-indicator {
   position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%);
@@ -377,7 +526,7 @@ body.lang-ur .scroll-text { letter-spacing: 0; font-size: 0.95rem; text-transfor
 @keyframes drop { 0%{transform:scaleY(0);transform-origin:top;} 50%{transform:scaleY(1);transform-origin:top;} 51%{transform:scaleY(1);transform-origin:bottom;} 100%{transform:scaleY(0);transform-origin:bottom;} }
 
 #mbtn {
-  position: fixed; top: 20px; right: 20px; z-index: 30;
+  position: fixed; top: 20px; right: 20px; z-index: 300;
   width: 42px; height: 42px; border-radius: 50%;
   background: var(--glass-bg); border: 1px solid var(--glass-border);
   backdrop-filter: blur(5px);
@@ -388,44 +537,26 @@ body.lang-ur .scroll-text { letter-spacing: 0; font-size: 0.95rem; text-transfor
 #mbtn:hover { border-color: var(--accent); color: var(--accent); }
 
 #watermark {
-  position: fixed;
-  bottom: 12px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 0.48rem;
-  color: rgba(255, 255, 255, 0.16);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  font-family: 'Montserrat', sans-serif;
-  pointer-events: none;
-  z-index: 25;
-  white-space: nowrap;
+  position: fixed; bottom: 12px; left: 50%; transform: translateX(-50%);
+  font-size: 0.48rem; color: rgba(255, 255, 255, 0.16);
+  letter-spacing: 0.18em; text-transform: uppercase;
+  font-family: 'Montserrat', sans-serif; pointer-events: none; z-index: 25; white-space: nowrap;
 }
+
 #lang-popup {
-  position: fixed;
-  top: 20px;
-  left: 50%;
+  position: fixed; top: 20px; left: 50%;
   transform: translateX(-50%) translateY(-20px);
   background: rgba(10, 8, 6, 0.9);
   border: 1px solid rgba(229, 205, 171, 0.4);
-  color: #e5cdab;
-  padding: 10px 18px;
-  border-radius: 20px;
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
-  z-index: 50;
-  opacity: 0;
-  transition: all 0.5s ease;
-  pointer-events: none;
+  color: #e5cdab; padding: 10px 18px; border-radius: 20px;
+  font-size: 0.75rem; letter-spacing: 0.08em; z-index: 50;
+  opacity: 0; transition: all 0.5s ease; pointer-events: none;
 }
-
-#lang-popup.show {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
+#lang-popup.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 </style>
 </head>
 <body>
+
 <div id="lang-popup">Tap here to switch language →</div>
 <audio id="bgm" src="vo.mp3" loop preload="none"></audio>
 
@@ -438,6 +569,45 @@ body.lang-ur .scroll-text { letter-spacing: 0; font-size: 0.95rem; text-transfor
   <span class="lang-sep">|</span>
   <span class="lang-seg lang-ur-label active-ur">اردو</span>
 </button>
+
+<!-- ══════════════════════════════════════════
+     NAME ENTRY SPLASH SCREEN
+══════════════════════════════════════════ -->
+<div id="name-splash">
+  <div class="splash-arabic">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</div>
+  <p class="splash-tagline" id="splash-tagline">Engagement Invitation</p>
+
+  <div class="splash-card">
+    <p class="splash-couple-tag" id="splash-couple-tag">Mangni of</p>
+    <h1 class="splash-name-line" id="splash-groom-name">Khaja Mujtaba Ahmed</h1>
+    <div class="splash-amp" id="splash-ampersand">&amp;</div>
+    <h1 class="splash-name-line" id="splash-bride-name">Shaista Fatima</h1>
+
+    <div class="splash-divider"></div>
+
+    <h2 class="splash-card-title" id="splash-title">May We Know Your Name?</h2>
+    <p class="splash-card-sub" id="splash-sub">So we may greet you personally inside.</p>
+
+    <input
+      type="text"
+      id="guest-name-input"
+      class="splash-name-input"
+      placeholder="Enter your full name…"
+      maxlength="60"
+      autocomplete="off"
+      spellcheck="false"
+    />
+
+    <div class="splash-btn-row">
+      <button class="splash-btn-enter" onclick="enterWithName()" id="splash-enter-btn">
+        Open My Invitation
+      </button>
+      <button class="splash-btn-skip" onclick="enterAsGuest()" id="splash-skip-btn">
+        Skip
+      </button>
+    </div>
+  </div>
+</div>
 
 <canvas id="webgl-canvas"></canvas>
 <div id="scroll-proxy"></div>
@@ -455,8 +625,12 @@ body.lang-ur .scroll-text { letter-spacing: 0; font-size: 0.95rem; text-transfor
       <p class="hero-arabic" lang="ar">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
       <p class="supertag" data-i18n="bismillahTrans">In the name of Allah, the Most Gracious, the Most Merciful.</p>
       <div class="divider"></div>
+
+      <!-- Personalised greeting — only visible when name is entered -->
+      <div id="guest-greeting"></div>
+
       <h1 class="hero-title" data-i18n="ex1Title">A Blessed Occasion</h1>
-      <p class="body-text" data-i18n="ex1Body">With hearts filled with joy and blessings from Allah (SWT), we request the pleasure of your company at the engagement ceremony of our beloved eldest son. Your presence and du'as will mean a great deal to us.</p>
+      <p class="body-text" data-i18n="ex1Body" id="ex1-body-text">With hearts filled with joy and blessings from Allah (SWT), we request the pleasure of your company at the engagement ceremony of our beloved eldest son. Your presence and du'as will mean a great deal to us.</p>
     </div>
   </section>
 
@@ -464,7 +638,7 @@ body.lang-ur .scroll-text { letter-spacing: 0; font-size: 0.95rem; text-transfor
   <section class="exhibit" id="ex-2">
     <div class="glass-panel">
       <p class="supertag" data-i18n="ex2Tag">Two Souls, One Destiny</p>
-      <h2 class="couple-names" data-i18n="groomName">Khaja Mujtaba Ahmed (Asim)</h2>
+      <h2 class="couple-names" data-i18n="groomName">Khaja Mujtaba Ahmed</h2>
       <div class="ampersand" data-i18n="withWord">With</div>
       <h2 class="couple-names" data-i18n="brideName">Shaista Fatima</h2>
     </div>
@@ -517,7 +691,7 @@ body.lang-ur .scroll-text { letter-spacing: 0; font-size: 0.95rem; text-transfor
       <p class="hosts-from" data-i18n="hostsFrom">This Invitation is Presented by</p>
       <div class="hosts-name" data-i18n="hostsName">Mr. &amp; Mrs. Khaja Ahmeduddin Ahmed</div>
       <div class="divider"></div>
-      <p class="hosts-message" data-i18n="hostsMessage">
+      <p class="hosts-message" data-i18n="hostsMessage" id="hosts-message-text">
         With immense gratitude to Allah (SWT) and overflowing joy in our hearts, we are honoured to invite you to witness this beautiful beginning in the life of our beloved son.<br><br>
         Your presence, your prayers, and your blessings are the greatest gift you could bestow upon our family on this auspicious occasion. We look forward to sharing this cherished moment with you.
       </p>
@@ -564,11 +738,7 @@ body.lang-ur .scroll-text { letter-spacing: 0; font-size: 0.95rem; text-transfor
 
 <div id="watermark">Created by Khaja Shamsuddin &bull; Premium Invitation Experiences</div>
 
-<!-- Curtain -->
-<div id="curtain" onclick="enterGallery()">
-  <h1 class="curtain-title" data-i18n="curtainTitle">Mujtaba &amp; Shaista</h1>
-  <p class="curtain-sub" data-i18n="curtainSub">Tap anywhere to enter</p>
-</div>
+<!-- Curtain removed — gallery opens directly after splash -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -577,7 +747,6 @@ body.lang-ur .scroll-text { letter-spacing: 0; font-size: 0.95rem; text-transfor
 <script>
 /* ═══════════════════════════════════════════════════════════════
    TRANSLATION DICTIONARY
-   All strings in both languages. Add / edit here only.
 ═══════════════════════════════════════════════════════════════ */
 const translations = {
   en: {
@@ -585,19 +754,14 @@ const translations = {
     curtainSub:      "Tap anywhere to enter",
     scrollPrompt:    "Swipe Up",
     scrollThanks:    "Thank You",
-
-    // Exhibit 1
     bismillahTrans:  "In the name of Allah, the Most Gracious, the Most Merciful.",
     ex1Title:        "A Blessed Occasion",
     ex1Body:         "With hearts filled with joy and blessings from Allah (SWT), we request the pleasure of your company at the engagement ceremony of our beloved eldest son. Your presence and du'as will mean a great deal to us.",
-
-    // Exhibit 2
+    ex1BodyPersonal: "With hearts filled with joy and blessings from Allah (SWT), we are honoured to personally invite you — dear {name} — to the engagement ceremony of our beloved eldest son. Your presence and du'as mean the world to us.",
     ex2Tag:          "Two Souls, One Destiny",
     groomName:       "Khaja Mujtaba Ahmed",
     withWord:        "With",
     brideName:       "Shaista Fatima",
-
-    // Exhibit 3
     ex3Tag:          "The Ceremony",
     ceremonyName:    "Mangni (Engagement)",
     dateLabel:       "Date",
@@ -609,35 +773,41 @@ const translations = {
     locationLabel:   "Location",
     locationVal:     "Hafiz Baba Nagar, Hyderabad",
     directionsLink:  "Get Directions →",
-
-    // Exhibit 4 — Countdown
     countdownTitle:  "The Beginning Awaits",
     cdDays:          "Days",
     cdHours:         "Hours",
     cdMins:          "Mins",
     cdSecs:          "Secs",
-
-    // Exhibit 5 — Hosts
     hostsFrom:       "This Invitation is Presented by",
     hostsName:       "Mr. & Mrs. Khaja Ahmeduddin Ahmed",
     hostsMessage:    "With immense gratitude to Allah (SWT) and overflowing joy in our hearts, we are honoured to invite you to witness this beautiful beginning in the life of our beloved son.<br><br>Your presence, your prayers, and your blessings are the greatest gift you could bestow upon our family on this auspicious occasion. We look forward to sharing this cherished moment with you.",
+    hostsMessagePersonal: "With immense gratitude to Allah (SWT) and overflowing joy in our hearts, we are deeply honoured to invite you — dear {name} — to witness this beautiful beginning in the life of our beloved son.<br><br>Your presence, your prayers, and your blessings are the greatest gift you could bestow upon our family on this auspicious occasion. We look forward to sharing this cherished moment with you.",
     hostsClosing:    "— With love & du'as, the Ahmed Family",
-
-    // Exhibit 6 — Wishes
     wishesTag:       "Your Blessings",
     wishesTitle:     "Leave a Message",
     wishesBody:      "Send your heartfelt wishes directly to the couple.",
     namePlaceholder: "Your Full Name",
     msgPlaceholder:  "Your wishes...",
     sendBtn:         "Send Your Blessings",
-
-    // Exhibit 7 — Promo
     promoTag:        "Make It Yours",
     promoTitle:      "Your Story Deserves This",
     promoSub:        "Turn your special moment into a cinematic digital experience.",
     promoFootnote:   "Because some moments deserve more than a screenshot — they deserve an experience.",
     promoBtn:        "Create My Invitation",
     promoNote:       "Limited bookings · Custom designed for every couple",
+    // Splash strings
+    splashTagline:   "Engagement Invitation",
+    splashCoupleTag: "You are cordially invited to the Mangni of",
+    splashGroomName: "Khaja Mujtaba Ahmed",
+    splashBrideName: "Shaista Fatima",
+    splashDateLine:  "Friday, 29 May 2026 · MKM Convention Hall, Hyderabad",
+    splashTitle:     "May We Know Your Name?",
+    splashSub:       "So we may address you personally — as you truly deserve.",
+    splashEnterBtn:  "Open My Invitation",
+    splashSkipBtn:   "Skip · Continue without name",
+    splashNote:      "Your name stays on your device only",
+    // Greeting inside invite
+    guestGreeting:   "Assalamu Alaikum, dear {name}",
   },
 
   ur: {
@@ -645,19 +815,14 @@ const translations = {
     curtainSub:      "داخل ہونے کے لیے کہیں بھی ٹچ کریں",
     scrollPrompt:    "اوپر سوائپ کریں",
     scrollThanks:    "شکریہ",
-
-    // Exhibit 1
     bismillahTrans:  "اللہ کے نام سے جو بڑا مہربان، نہایت رحم والا ہے۔",
     ex1Title:        "ایک بابرکت موقع",
     ex1Body:         "اللہ سبحانہ وتعالیٰ کے فضل و کرم اور خوشی سے بھرے دلوں کے ساتھ، ہم آپ کو اپنے لاڈلے بڑے بیٹے کی منگنی کی تقریب میں شرکت کی دعوت دیتے ہیں۔ آپ کی موجودگی اور دعائیں ہمارے لیے انمول تحفہ ہوں گی۔",
-
-    // Exhibit 2
+    ex1BodyPersonal: "اللہ سبحانہ وتعالیٰ کے فضل و کرم کے ساتھ، ہم آپ کو — محترم {name} — اپنے لاڈلے بڑے بیٹے کی منگنی کی تقریب میں شرکت کی ذاتی دعوت دینے کا اعزاز رکھتے ہیں۔ آپ کی موجودگی اور دعائیں ہمارے لیے انمول تحفہ ہوں گی۔",
     ex2Tag:          "دو روحیں، ایک مقدر",
     groomName:       "خواجہ مجتبیٰ احمد — عاصم",
     withWord:        "اور",
     brideName:       "شائستہ فاطمہ",
-
-    // Exhibit 3
     ex3Tag:          "تقریب",
     ceremonyName:    "منگنی",
     dateLabel:       "تاریخ",
@@ -669,42 +834,136 @@ const translations = {
     locationLabel:   "پتہ",
     locationVal:     "حافظ بابا نگر، حیدرآباد",
     directionsLink:  "راستہ دیکھیں ←",
-
-    // Exhibit 4 — Countdown
     countdownTitle:  "آغاز کا انتظار",
     cdDays:          "دن",
     cdHours:         "گھنٹے",
     cdMins:          "منٹ",
     cdSecs:          "سیکنڈ",
-
-    // Exhibit 5 — Hosts
     hostsFrom:       "یہ دعوت نامہ پیش کیا جا رہا ہے",
     hostsName:       "جناب اور بیگم خواجہ احمد الدین احمد",
     hostsMessage:    "اللہ سبحانہ وتعالیٰ کا لاکھ لاکھ شکر ادا کرتے ہوئے اور دلوں میں خوشی سموئے، ہمیں یہ اعزاز حاصل ہے کہ آپ کو اپنے لاڈلے بیٹے کی زندگی کے اس خوبصورت آغاز کا گواہ بننے کی دعوت دیں۔<br><br>آپ کی موجودگی، آپ کی دعائیں اور آپ کا آشیرواد — یہی اس مبارک موقع پر ہمارے خاندان کو سب سے بڑا تحفہ ہے۔ ہم اس محبت بھرے لمحے کو آپ کے ساتھ بانٹنے کے منتظر ہیں۔",
+    hostsMessagePersonal: "اللہ سبحانہ وتعالیٰ کا لاکھ لاکھ شکر ادا کرتے ہوئے، ہمیں یہ اعزاز حاصل ہے کہ آپ کو — محترم {name} — اپنے لاڈلے بیٹے کی زندگی کے اس خوبصورت آغاز کا گواہ بننے کی ذاتی دعوت دیں۔<br><br>آپ کی موجودگی، آپ کی دعائیں اور آپ کا آشیرواد — یہی اس مبارک موقع پر ہمارے خاندان کو سب سے بڑا تحفہ ہے۔",
     hostsClosing:    "— محبت اور دعاؤں کے ساتھ، احمد خاندان",
-
-    // Exhibit 6 — Wishes
     wishesTag:       "آپ کی دعائیں",
     wishesTitle:     "پیغام چھوڑیں",
     wishesBody:      "جوڑے کو اپنی دلی مبارکباد سیدھی بھیجیں۔",
     namePlaceholder: "آپ کا پورا نام",
     msgPlaceholder:  "آپ کی مبارکباد...",
     sendBtn:         "مبارکباد بھیجیں",
-
-    // Exhibit 7 — Promo
     promoTag:        "اپنا بنائیں",
     promoTitle:      "آپ کی کہانی اس کی مستحق ہے",
     promoSub:        "اپنے خاص لمحے کو ایک سینماٹک ڈیجیٹل تجربے میں بدلیں۔",
     promoFootnote:   "کیونکہ کچھ لمحے صرف اسکرین شاٹ سے زیادہ کے حقدار ہوتے ہیں — وہ ایک تجربہ مانگتے ہیں۔",
     promoBtn:        "میرا دعوت نامہ بنائیں",
     promoNote:       "محدود بکنگ · ہر جوڑے کے لیے خاص ڈیزائن",
+    // Splash
+    splashTagline:   "منگنی کا دعوت نامہ",
+    splashCoupleTag: "آپ کو خوشی سے مدعو کیا جاتا ہے — منگنی کی تقریب میں",
+    splashGroomName: "خواجہ مجتبیٰ احمد",
+    splashBrideName: "شائستہ فاطمہ",
+    splashDateLine:  "جمعہ، ۲۹ مئی ۲۰۲۶ · ایم کے ایم کنونشن ہال، حیدرآباد",
+    splashTitle:     "کیا ہم آپ کا نام جان سکتے ہیں؟",
+    splashSub:       "تاکہ ہم آپ کو ذاتی طور پر مخاطب کر سکیں — جیسا کہ آپ کا حق ہے۔",
+    splashEnterBtn:  "میرا دعوت نامہ کھولیں",
+    splashSkipBtn:   "چھوڑیں · بغیر نام کے جاری رکھیں",
+    splashNote:      "آپ کا نام صرف آپ کے آلے پر محفوظ رہتا ہے",
+    guestGreeting:   "السلام علیکم، محترم {name}",
   }
 };
 
 /* ═══════════════════════════════════════════════════════════════
-   LANGUAGE ENGINE
+   STATE
 ═══════════════════════════════════════════════════════════════ */
 let currentLang = localStorage.getItem('inviteLang') || 'en';
+let guestName   = '';   // set after splash
+
+/* ═══════════════════════════════════════════════════════════════
+   SPLASH LOGIC
+═══════════════════════════════════════════════════════════════ */
+function enterWithName() {
+  const raw = document.getElementById('guest-name-input').value.trim();
+  if (!raw) {
+    // Gentle shake + hint if blank
+    const inp = document.getElementById('guest-name-input');
+    inp.style.borderColor = 'rgba(229,205,171,0.7)';
+    inp.placeholder = currentLang === 'ur' ? 'براہ کرم اپنا نام لکھیں…' : 'Please enter your name…';
+    inp.focus();
+    setTimeout(() => {
+      inp.style.borderColor = 'rgba(229,205,171,0.2)';
+      inp.placeholder = currentLang === 'ur' ? 'اپنا پورا نام لکھیں…' : 'Enter your full name…';
+    }, 1800);
+    return;
+  }
+  guestName = raw;
+  // Pre-fill the wish form name field
+  document.getElementById('w-name').value = guestName;
+  dismissSplash(true);
+}
+
+function enterAsGuest() {
+  guestName = '';
+  dismissSplash(false);
+}
+
+function dismissSplash(hasName) {
+  const splash = document.getElementById('name-splash');
+  splash.classList.add('hiding');
+  setTimeout(() => {
+    splash.classList.add('gone');
+
+    // Apply personalisation if name was given
+    if (hasName) {
+      const t = translations[currentLang];
+      const greeting = document.getElementById('guest-greeting');
+      greeting.textContent = t.guestGreeting.replace('{name}', guestName);
+      greeting.style.display = 'block';
+
+      const bodyEl = document.getElementById('ex1-body-text');
+      bodyEl.innerHTML = t.ex1BodyPersonal.replace('{name}', guestName);
+      bodyEl.removeAttribute('data-i18n');
+
+      const hostsEl = document.getElementById('hosts-message-text');
+      hostsEl.innerHTML = t.hostsMessagePersonal.replace('{name}', guestName);
+      hostsEl.removeAttribute('data-i18n');
+    }
+
+    // Open the invitation directly — no curtain
+    openGalleryDirectly();
+  }, 850);
+}
+
+function openGalleryDirectly() {
+  toggleMusic();
+  setTimeout(() => document.getElementById('scroll-prompt').classList.add('visible'), 2000);
+  gsap.to("#ui-layer", { autoAlpha: 1, duration: 1.4, ease: "power2.out" });
+}
+
+// Allow Enter key to submit
+document.getElementById('guest-name-input').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') enterWithName();
+});
+
+/* ═══════════════════════════════════════════════════════════════
+   LANGUAGE ENGINE
+═══════════════════════════════════════════════════════════════ */
+function applySplashLanguage(lang) {
+  const t = translations[lang];
+  const isUr = lang === 'ur';
+  document.getElementById('splash-tagline').textContent    = t.splashTagline;
+  document.getElementById('splash-title').textContent      = t.splashTitle;
+  document.getElementById('splash-sub').textContent        = t.splashSub;
+  document.getElementById('splash-enter-btn').textContent  = t.splashEnterBtn;
+  document.getElementById('splash-skip-btn').textContent   = t.splashSkipBtn;
+  document.getElementById('splash-note').textContent       = t.splashNote;
+  document.getElementById('splash-couple-tag').textContent = t.splashCoupleTag;
+  document.getElementById('splash-groom-name').textContent = t.splashGroomName;
+  document.getElementById('splash-bride-name').textContent = t.splashBrideName;
+  document.getElementById('splash-date-line').textContent  = t.splashDateLine;
+  const inp = document.getElementById('guest-name-input');
+  inp.placeholder = isUr ? 'اپنا پورا نام لکھیں…' : 'Enter your full name…';
+  inp.style.direction = isUr ? 'rtl' : 'ltr';
+  inp.style.textAlign = isUr ? 'right' : 'center';
+}
 
 function applyLanguage(lang) {
   currentLang = lang;
@@ -713,39 +972,52 @@ function applyLanguage(lang) {
   const t = translations[lang];
   const isUr = lang === 'ur';
 
-  // 1. html element dir + lang attribute
   document.documentElement.lang = lang;
-  document.documentElement.dir = isUr ? 'rtl' : 'ltr';
-
-  // 2. body class drives all CSS RTL overrides
+  document.documentElement.dir  = isUr ? 'rtl' : 'ltr';
   document.body.classList.toggle('lang-ur', isUr);
 
-  // 3. Inject text for data-i18n elements
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
     if (t[key] !== undefined) el.innerHTML = t[key];
   });
 
-  // 4. Inject placeholders for data-i18n-placeholder elements
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
     const key = el.getAttribute('data-i18n-placeholder');
     if (t[key] !== undefined) el.placeholder = t[key];
   });
 
-  // 5. Update scroll prompt text (if already changed to "thanks" state, respect that)
   const scrollTextEl = document.querySelector('.scroll-text');
   if (scrollTextEl && scrollTextEl.getAttribute('data-i18n') === 'scrollPrompt') {
     scrollTextEl.textContent = t.scrollPrompt;
   }
+
+  // Re-apply personalised strings if name is set
+  if (guestName) {
+    const greeting = document.getElementById('guest-greeting');
+    greeting.textContent = t.guestGreeting.replace('{name}', guestName);
+
+    const bodyEl = document.getElementById('ex1-body-text');
+    if (!bodyEl.getAttribute('data-i18n')) {
+      bodyEl.innerHTML = t.ex1BodyPersonal.replace('{name}', guestName);
+    }
+
+    const hostsEl = document.getElementById('hosts-message-text');
+    if (!hostsEl.getAttribute('data-i18n')) {
+      hostsEl.innerHTML = t.hostsMessagePersonal.replace('{name}', guestName);
+    }
+  }
+
+  // Update splash strings while still on splash
+  applySplashLanguage(lang);
 }
 
 function toggleLanguage() {
   applyLanguage(currentLang === 'en' ? 'ur' : 'en');
 }
 
-// Apply on load (respects localStorage)
 document.addEventListener('DOMContentLoaded', () => {
   if (currentLang !== 'en') applyLanguage(currentLang);
+  else applySplashLanguage('en');
 });
 
 /* ═══════════════════════════════════════════════════════════════
@@ -765,16 +1037,6 @@ function toggleMusic() {
     btn.style.borderColor = 'var(--accent)';
   }
   musicPlaying = !musicPlaying;
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   GALLERY ENTRY
-═══════════════════════════════════════════════════════════════ */
-function enterGallery() {
-  document.getElementById('curtain').classList.add('hidden');
-  toggleMusic();
-  setTimeout(() => document.getElementById('scroll-prompt').classList.add('visible'), 2000);
-  setTimeout(() => gsap.to("#ui-layer", { autoAlpha: 1, duration: 1.2, ease: "power2.out" }), 500);
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -805,9 +1067,9 @@ function sendWish() {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   THREE.JS — 3D Crystal Tunnel (unchanged)
+   THREE.JS — 3D Crystal Tunnel
 ═══════════════════════════════════════════════════════════════ */
-const canvas = document.getElementById('webgl-canvas');
+const canvas3d = document.getElementById('webgl-canvas');
 const scene = new THREE.Scene();
 scene.background = new THREE.Color('#050403');
 scene.fog = new THREE.FogExp2(new THREE.Color('#0a0806'), 0.010);
@@ -815,7 +1077,7 @@ scene.fog = new THREE.FogExp2(new THREE.Color('#0a0806'), 0.010);
 const camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 0.1, 300);
 camera.position.set(0, 1.6, 0);
 
-const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: false });
+const renderer = new THREE.WebGLRenderer({ canvas: canvas3d, antialias: false, alpha: false });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
 
@@ -929,7 +1191,7 @@ function animate() {
 animate();
 
 /* ═══════════════════════════════════════════════════════════════
-   GSAP SCROLL (unchanged, safe from lang toggle)
+   GSAP SCROLL
 ═══════════════════════════════════════════════════════════════ */
 gsap.registerPlugin(ScrollTrigger);
 gsap.to(camera.position, {
@@ -954,8 +1216,6 @@ const zones = [
   { start: 85, end: 100 }
 ];
 
-const t = translations[currentLang];
-
 for (let i = 1; i < numExhibits; i++) {
   const ex = exhibits[i];
   const zone = zones[i-1];
@@ -973,7 +1233,7 @@ for (let i = 1; i < numExhibits; i++) {
         if (isLast) {
           const st = document.querySelector('.scroll-text');
           st.textContent = translations[currentLang].scrollThanks;
-          st.removeAttribute('data-i18n'); // prevent overwrite by applyLanguage
+          st.removeAttribute('data-i18n');
           document.querySelector('.scroll-arrow').style.display = "none";
         }
       },
@@ -1003,15 +1263,12 @@ for (let i = 1; i < numExhibits; i++) {
       .to(panel, { y: -40, scale: 1.05, duration: 0.2, ease: "none" }, "<");
   }
 }
-const popup = document.getElementById('lang-popup');
 
+// Lang popup hint
+const popup = document.getElementById('lang-popup');
 setTimeout(() => {
   popup.classList.add('show');
-
-  setTimeout(() => {
-    popup.classList.remove('show');
-  }, 3000);
-
+  setTimeout(() => popup.classList.remove('show'), 3000);
 }, 1500);
 </script>
 </body>
