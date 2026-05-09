@@ -376,6 +376,96 @@ body.lang-ur #mbtn { right: auto; left: 20px; }
 body:not(.lang-ur) #lang-btn .active-en { color: var(--accent); }
 body.lang-ur      #lang-btn .active-ur { color: var(--accent); }
 
+/* ════════════════════════════════════════════
+   SCROLL PROGRESS INDICATOR
+════════════════════════════════════════════ */
+#scroll-progress-wrap {
+  position: fixed;
+  right: 18px;
+  bottom: 105px;
+  z-index: 300;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+}
+
+#scroll-progress-wrap.visible {
+  opacity: 1;
+}
+
+.sp-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  border: 1px solid rgba(229, 205, 171, 0.4);
+  background: transparent;
+  transition: all 0.4s ease;
+  position: relative;
+}
+
+.sp-dot.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 6px rgba(229, 205, 171, 0.6);
+  transform: scale(1.35);
+}
+
+.sp-dot.visited {
+  background: rgba(229, 205, 171, 0.25);
+  border-color: rgba(229, 205, 171, 0.3);
+}
+
+/* Track line connecting dots */
+#scroll-progress-wrap::before {
+  content: '';
+  position: absolute;
+  top: 9px;
+  bottom: 9px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(229,205,171,0.15), transparent);
+  z-index: -1;
+}
+
+/* Label that appears on active dot */
+.sp-label {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.52rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.sp-dot.active .sp-label {
+  opacity: 0.7;
+}
+
+body.lang-ur #scroll-progress-wrap {
+  right: auto;
+  left: 18px;
+  bottom: 105px;
+}
+body.lang-ur .sp-label {
+  right: auto;
+  left: 16px;
+  letter-spacing: 0;
+  font-family: var(--font-urdu);
+  font-size: 0.75rem;
+}
+
 #scroll-proxy {
   position: absolute; top: 0; left: 0;
   width: 100%; height: 1000vh; z-index: 1;
@@ -442,6 +532,18 @@ h1, h2 {
 .hero-arabic { font-size: 2.8rem; color: var(--accent); margin-bottom: 10px; font-weight: 300; font-family: 'Lateef', serif; text-shadow: 0 0 15px rgba(229,205,171,0.4); }
 .couple-names { font-size: clamp(2.2rem, 7vw, 4.5rem); margin: 5px 0; color: #fff; text-shadow: 0 0 15px rgba(255,255,255,0.3); }
 .ampersand { font-family: 'Cinzel', serif; color: var(--accent); font-size: 2rem; margin: -5px 0; }
+
+/* Asim nickname styling */
+.name-nickname {
+  font-family: 'Cinzel', serif;
+  font-size: 0.55em;
+  color: var(--accent);
+  font-weight: 400;
+  font-style: italic;
+  opacity: 0.8;
+  letter-spacing: 0.06em;
+  vertical-align: middle;
+}
 
 .details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; text-align: left; }
 @media(max-width: 600px){
@@ -553,6 +655,30 @@ body.lang-ur .scroll-text { letter-spacing: 0; font-size: 0.95rem; text-transfor
   opacity: 0; transition: all 0.5s ease; pointer-events: none;
 }
 #lang-popup.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ════════════════════════════════════════════
+   COUPLE CARD FLOWERS
+════════════════════════════════════════════ */
+#ex-2 .glass-panel {
+  position: relative;
+  overflow: visible;
+}
+
+.flower-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  border-radius: 12px;
+  overflow: visible;
+  z-index: 0;
+}
+
+#ex-2 .glass-panel > *:not(.flower-canvas) {
+  position: relative;
+  z-index: 1;
+}
 </style>
 </head>
 <body>
@@ -571,6 +697,13 @@ body.lang-ur .scroll-text { letter-spacing: 0; font-size: 0.95rem; text-transfor
 </button>
 
 <!-- ══════════════════════════════════════════
+     SCROLL PROGRESS DOTS
+══════════════════════════════════════════ -->
+<nav id="scroll-progress-wrap" aria-label="Page sections">
+  <!-- dots injected by JS -->
+</nav>
+
+<!-- ══════════════════════════════════════════
      NAME ENTRY SPLASH SCREEN
 ══════════════════════════════════════════ -->
 <div id="name-splash">
@@ -579,7 +712,7 @@ body.lang-ur .scroll-text { letter-spacing: 0; font-size: 0.95rem; text-transfor
 
   <div class="splash-card">
     <p class="splash-couple-tag" id="splash-couple-tag">Mangni of</p>
-    <h1 class="splash-name-line" id="splash-groom-name">Khaja Mujtaba Ahmed</h1>
+    <h1 class="splash-name-line" id="splash-groom-name">Khaja Mujtaba Ahmed <span style="font-size:0.7em;color:var(--accent);opacity:0.8;">(Asim)</span></h1>
     <div class="splash-amp" id="splash-ampersand">&amp;</div>
     <h1 class="splash-name-line" id="splash-bride-name">Shaista Fatima</h1>
 
@@ -637,8 +770,167 @@ body.lang-ur .scroll-text { letter-spacing: 0; font-size: 0.95rem; text-transfor
   <!-- Exhibit 2 -->
   <section class="exhibit" id="ex-2">
     <div class="glass-panel">
+      <!-- Floral decoration -->
+      <svg class="flower-canvas" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <defs>
+          <!-- Petal gradient -->
+          <radialGradient id="pg1" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#fff8ee" stop-opacity="0.95"/>
+            <stop offset="60%" stop-color="#e5cdab" stop-opacity="0.7"/>
+            <stop offset="100%" stop-color="#c8a97e" stop-opacity="0.3"/>
+          </radialGradient>
+          <radialGradient id="pg2" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#ffeedd" stop-opacity="0.9"/>
+            <stop offset="70%" stop-color="#d4a96a" stop-opacity="0.5"/>
+            <stop offset="100%" stop-color="#b8894a" stop-opacity="0.2"/>
+          </radialGradient>
+          <radialGradient id="pg3" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.8"/>
+            <stop offset="100%" stop-color="#e5cdab" stop-opacity="0.1"/>
+          </radialGradient>
+          <filter id="bloom">
+            <feGaussianBlur stdDeviation="1.5" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="softglow">
+            <feGaussianBlur stdDeviation="3" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+
+        <!-- ── LEFT CORNER CLUSTER ── -->
+        <g transform="translate(-10, -15)" filter="url(#bloom)" opacity="0.85">
+          <!-- Large rose left -->
+          <g transform="translate(60,80)">
+            <ellipse rx="22" ry="11" fill="url(#pg1)" transform="rotate(0)"/>
+            <ellipse rx="22" ry="11" fill="url(#pg1)" transform="rotate(40)"/>
+            <ellipse rx="22" ry="11" fill="url(#pg1)" transform="rotate(80)"/>
+            <ellipse rx="22" ry="11" fill="url(#pg1)" transform="rotate(120)"/>
+            <ellipse rx="22" ry="11" fill="url(#pg1)" transform="rotate(160)"/>
+            <!-- inner petals -->
+            <ellipse rx="13" ry="7" fill="url(#pg2)" transform="rotate(20)"/>
+            <ellipse rx="13" ry="7" fill="url(#pg2)" transform="rotate(80)"/>
+            <ellipse rx="13" ry="7" fill="url(#pg2)" transform="rotate(140)"/>
+            <circle r="5" fill="#e5cdab" opacity="0.9"/>
+          </g>
+          <!-- Small blossom -->
+          <g transform="translate(115,45)">
+            <ellipse rx="12" ry="6" fill="url(#pg2)" transform="rotate(0)"/>
+            <ellipse rx="12" ry="6" fill="url(#pg2)" transform="rotate(45)"/>
+            <ellipse rx="12" ry="6" fill="url(#pg2)" transform="rotate(90)"/>
+            <ellipse rx="12" ry="6" fill="url(#pg2)" transform="rotate(135)"/>
+            <circle r="3.5" fill="#fff8ee" opacity="0.95"/>
+          </g>
+          <!-- Tiny blossom -->
+          <g transform="translate(30,40)">
+            <ellipse rx="9" ry="4.5" fill="url(#pg3)" transform="rotate(0)"/>
+            <ellipse rx="9" ry="4.5" fill="url(#pg3)" transform="rotate(60)"/>
+            <ellipse rx="9" ry="4.5" fill="url(#pg3)" transform="rotate(120)"/>
+            <circle r="2.5" fill="#e5cdab" opacity="0.8"/>
+          </g>
+          <!-- Leaves -->
+          <ellipse cx="85" cy="110" rx="18" ry="7" fill="#2d4a2a" opacity="0.45" transform="rotate(-30,85,110)"/>
+          <ellipse cx="40" cy="70" rx="14" ry="5" fill="#2d4a2a" opacity="0.35" transform="rotate(20,40,70)"/>
+          <ellipse cx="100" cy="25" rx="12" ry="4.5" fill="#3a5c36" opacity="0.35" transform="rotate(-15,100,25)"/>
+          <!-- Buds -->
+          <ellipse cx="140" cy="75" rx="6" ry="9" fill="url(#pg2)" opacity="0.7" transform="rotate(15,140,75)"/>
+          <ellipse cx="20" cy="110" rx="5" ry="7.5" fill="url(#pg1)" opacity="0.6" transform="rotate(-10,20,110)"/>
+          <!-- Tiny dots -->
+          <circle cx="95" cy="135" r="2.5" fill="#e5cdab" opacity="0.5"/>
+          <circle cx="130" cy="100" r="2" fill="#fff8ee" opacity="0.6"/>
+          <circle cx="50" cy="125" r="2" fill="#e5cdab" opacity="0.45"/>
+        </g>
+
+        <!-- ── RIGHT CORNER CLUSTER ── -->
+        <g transform="translate(810, -15) scale(-1,1)" filter="url(#bloom)" opacity="0.85">
+          <!-- Large rose right -->
+          <g transform="translate(60,80)">
+            <ellipse rx="22" ry="11" fill="url(#pg1)" transform="rotate(0)"/>
+            <ellipse rx="22" ry="11" fill="url(#pg1)" transform="rotate(40)"/>
+            <ellipse rx="22" ry="11" fill="url(#pg1)" transform="rotate(80)"/>
+            <ellipse rx="22" ry="11" fill="url(#pg1)" transform="rotate(120)"/>
+            <ellipse rx="22" ry="11" fill="url(#pg1)" transform="rotate(160)"/>
+            <ellipse rx="13" ry="7" fill="url(#pg2)" transform="rotate(20)"/>
+            <ellipse rx="13" ry="7" fill="url(#pg2)" transform="rotate(80)"/>
+            <ellipse rx="13" ry="7" fill="url(#pg2)" transform="rotate(140)"/>
+            <circle r="5" fill="#e5cdab" opacity="0.9"/>
+          </g>
+          <g transform="translate(115,45)">
+            <ellipse rx="12" ry="6" fill="url(#pg2)" transform="rotate(0)"/>
+            <ellipse rx="12" ry="6" fill="url(#pg2)" transform="rotate(45)"/>
+            <ellipse rx="12" ry="6" fill="url(#pg2)" transform="rotate(90)"/>
+            <ellipse rx="12" ry="6" fill="url(#pg2)" transform="rotate(135)"/>
+            <circle r="3.5" fill="#fff8ee" opacity="0.95"/>
+          </g>
+          <g transform="translate(30,40)">
+            <ellipse rx="9" ry="4.5" fill="url(#pg3)" transform="rotate(0)"/>
+            <ellipse rx="9" ry="4.5" fill="url(#pg3)" transform="rotate(60)"/>
+            <ellipse rx="9" ry="4.5" fill="url(#pg3)" transform="rotate(120)"/>
+            <circle r="2.5" fill="#e5cdab" opacity="0.8"/>
+          </g>
+          <ellipse cx="85" cy="110" rx="18" ry="7" fill="#2d4a2a" opacity="0.45" transform="rotate(-30,85,110)"/>
+          <ellipse cx="40" cy="70" rx="14" ry="5" fill="#2d4a2a" opacity="0.35" transform="rotate(20,40,70)"/>
+          <ellipse cx="100" cy="25" rx="12" ry="4.5" fill="#3a5c36" opacity="0.35" transform="rotate(-15,100,25)"/>
+          <ellipse cx="140" cy="75" rx="6" ry="9" fill="url(#pg2)" opacity="0.7" transform="rotate(15,140,75)"/>
+          <ellipse cx="20" cy="110" rx="5" ry="7.5" fill="url(#pg1)" opacity="0.6" transform="rotate(-10,20,110)"/>
+          <circle cx="95" cy="135" r="2.5" fill="#e5cdab" opacity="0.5"/>
+          <circle cx="130" cy="100" r="2" fill="#fff8ee" opacity="0.6"/>
+          <circle cx="50" cy="125" r="2" fill="#e5cdab" opacity="0.45"/>
+        </g>
+
+        <!-- ── BOTTOM LEFT ── -->
+        <g transform="translate(-10, 410) scale(1,-1)" filter="url(#bloom)" opacity="0.7">
+          <g transform="translate(55,70)">
+            <ellipse rx="16" ry="8" fill="url(#pg2)" transform="rotate(0)"/>
+            <ellipse rx="16" ry="8" fill="url(#pg2)" transform="rotate(45)"/>
+            <ellipse rx="16" ry="8" fill="url(#pg2)" transform="rotate(90)"/>
+            <ellipse rx="16" ry="8" fill="url(#pg2)" transform="rotate(135)"/>
+            <circle r="4" fill="#e5cdab" opacity="0.9"/>
+          </g>
+          <ellipse cx="80" cy="100" rx="15" ry="6" fill="#2d4a2a" opacity="0.4" transform="rotate(-25,80,100)"/>
+          <ellipse cx="30" cy="55" rx="11" ry="4" fill="#3a5c36" opacity="0.3" transform="rotate(15,30,55)"/>
+          <circle cx="110" cy="60" r="3" fill="#fff8ee" opacity="0.55"/>
+          <circle cx="40" cy="95" r="2" fill="#e5cdab" opacity="0.45"/>
+        </g>
+
+        <!-- ── BOTTOM RIGHT ── -->
+        <g transform="translate(810, 410) scale(-1,-1)" filter="url(#bloom)" opacity="0.7">
+          <g transform="translate(55,70)">
+            <ellipse rx="16" ry="8" fill="url(#pg2)" transform="rotate(0)"/>
+            <ellipse rx="16" ry="8" fill="url(#pg2)" transform="rotate(45)"/>
+            <ellipse rx="16" ry="8" fill="url(#pg2)" transform="rotate(90)"/>
+            <ellipse rx="16" ry="8" fill="url(#pg2)" transform="rotate(135)"/>
+            <circle r="4" fill="#e5cdab" opacity="0.9"/>
+          </g>
+          <ellipse cx="80" cy="100" rx="15" ry="6" fill="#2d4a2a" opacity="0.4" transform="rotate(-25,80,100)"/>
+          <ellipse cx="30" cy="55" rx="11" ry="4" fill="#3a5c36" opacity="0.3" transform="rotate(15,30,55)"/>
+          <circle cx="110" cy="60" r="3" fill="#fff8ee" opacity="0.55"/>
+          <circle cx="40" cy="95" r="2" fill="#e5cdab" opacity="0.45"/>
+        </g>
+
+        <!-- ── FLOATING PETALS (animated) ── -->
+        <g opacity="0.35">
+          <ellipse cx="200" cy="30" rx="7" ry="3.5" fill="#e5cdab" transform="rotate(-20,200,30)">
+            <animateTransform attributeName="transform" type="rotate" from="-20 200 30" to="340 200 30" dur="18s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.35;0.55;0.35" dur="6s" repeatCount="indefinite"/>
+          </ellipse>
+          <ellipse cx="600" cy="370" rx="6" ry="3" fill="#fff8ee" transform="rotate(30,600,370)">
+            <animateTransform attributeName="transform" type="rotate" from="30 600 370" to="390 600 370" dur="22s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.3;0.5;0.3" dur="8s" repeatCount="indefinite"/>
+          </ellipse>
+          <ellipse cx="400" cy="15" rx="5" ry="2.5" fill="#e5cdab" transform="rotate(10,400,15)">
+            <animateTransform attributeName="transform" type="rotate" from="10 400 15" to="370 400 15" dur="15s" repeatCount="indefinite"/>
+          </ellipse>
+          <ellipse cx="700" cy="50" rx="6" ry="3" fill="#fff8ee" transform="rotate(-35,700,50)">
+            <animateTransform attributeName="transform" type="rotate" from="-35 700 50" to="325 700 50" dur="20s" repeatCount="indefinite"/>
+          </ellipse>
+          <ellipse cx="150" cy="350" rx="5" ry="2.5" fill="#e5cdab" transform="rotate(45,150,350)">
+            <animateTransform attributeName="transform" type="rotate" from="45 150 350" to="405 150 350" dur="17s" repeatCount="indefinite"/>
+          </ellipse>
+        </g>
+      </svg>
       <p class="supertag" data-i18n="ex2Tag">Two Souls, One Destiny</p>
-      <h2 class="couple-names" data-i18n="groomName">Khaja Mujtaba Ahmed</h2>
+      <h2 class="couple-names" id="groom-name-ex2">Khaja Mujtaba Ahmed <span class="name-nickname">(Asim)</span></h2>
       <div class="ampersand" data-i18n="withWord">With</div>
       <h2 class="couple-names" data-i18n="brideName">Shaista Fatima</h2>
     </div>
@@ -738,8 +1030,6 @@ body.lang-ur .scroll-text { letter-spacing: 0; font-size: 0.95rem; text-transfor
 
 <div id="watermark">Created by Khaja Shamsuddin &bull; Premium Invitation Experiences</div>
 
-<!-- Curtain removed — gallery opens directly after splash -->
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -759,7 +1049,7 @@ const translations = {
     ex1Body:         "With hearts filled with joy and blessings from Allah (SWT), we request the pleasure of your company at the engagement ceremony of our beloved eldest son. Your presence and du'as will mean a great deal to us.",
     ex1BodyPersonal: "With hearts filled with joy and blessings from Allah (SWT), we are honoured to personally invite you — dear {name} — to the engagement ceremony of our beloved eldest son. Your presence and du'as mean the world to us.",
     ex2Tag:          "Two Souls, One Destiny",
-    groomName:       "Khaja Mujtaba Ahmed",
+    groomName:       "Khaja Mujtaba Ahmed (Asim)",
     withWord:        "With",
     brideName:       "Shaista Fatima",
     ex3Tag:          "The Ceremony",
@@ -795,7 +1085,6 @@ const translations = {
     promoFootnote:   "Because some moments deserve more than a screenshot — they deserve an experience.",
     promoBtn:        "Create My Invitation",
     promoNote:       "Limited bookings · Custom designed for every couple",
-    // Splash strings
     splashTagline:   "Engagement Invitation",
     splashCoupleTag: "You are cordially invited to the Mangni of",
     splashGroomName: "Khaja Mujtaba Ahmed",
@@ -806,8 +1095,9 @@ const translations = {
     splashEnterBtn:  "Open My Invitation",
     splashSkipBtn:   "Skip · Continue without name",
     splashNote:      "Your name stays on your device only",
-    // Greeting inside invite
     guestGreeting:   "Assalamu Alaikum, dear {name}",
+    // Section labels for progress dots
+    sections: ["Welcome", "The Couple", "Ceremony", "Countdown", "From Family", "Wishes", "More"],
   },
 
   ur: {
@@ -856,7 +1146,6 @@ const translations = {
     promoFootnote:   "کیونکہ کچھ لمحے صرف اسکرین شاٹ سے زیادہ کے حقدار ہوتے ہیں — وہ ایک تجربہ مانگتے ہیں۔",
     promoBtn:        "میرا دعوت نامہ بنائیں",
     promoNote:       "محدود بکنگ · ہر جوڑے کے لیے خاص ڈیزائن",
-    // Splash
     splashTagline:   "منگنی کا دعوت نامہ",
     splashCoupleTag: "آپ کو خوشی سے مدعو کیا جاتا ہے — منگنی کی تقریب میں",
     splashGroomName: "خواجہ مجتبیٰ احمد",
@@ -868,6 +1157,7 @@ const translations = {
     splashSkipBtn:   "چھوڑیں · بغیر نام کے جاری رکھیں",
     splashNote:      "آپ کا نام صرف آپ کے آلے پر محفوظ رہتا ہے",
     guestGreeting:   "السلام علیکم، محترم {name}",
+    sections: ["خوش آمدید", "جوڑا", "تقریب", "الٹی گنتی", "خاندان", "دعائیں", "مزید"],
   }
 };
 
@@ -875,7 +1165,51 @@ const translations = {
    STATE
 ═══════════════════════════════════════════════════════════════ */
 let currentLang = localStorage.getItem('inviteLang') || 'en';
-let guestName   = '';   // set after splash
+let guestName   = '';
+
+/* ═══════════════════════════════════════════════════════════════
+   SCROLL PROGRESS DOTS — build & update
+═══════════════════════════════════════════════════════════════ */
+const NUM_SECTIONS = 7;
+let activeDot = 0;
+
+function buildProgressDots() {
+  const wrap = document.getElementById('scroll-progress-wrap');
+  wrap.innerHTML = '';
+  const t = translations[currentLang];
+  for (let i = 0; i < NUM_SECTIONS; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'sp-dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('data-index', i);
+    // Label
+    const lbl = document.createElement('span');
+    lbl.className = 'sp-label';
+    lbl.textContent = t.sections[i];
+    dot.appendChild(lbl);
+    // Click to jump
+    dot.addEventListener('click', () => {
+      const proxy = document.getElementById('scroll-proxy');
+      const totalScroll = proxy.offsetHeight - window.innerHeight;
+      const fraction = i / (NUM_SECTIONS - 1);
+      window.scrollTo({ top: totalScroll * fraction * 0.98, behavior: 'smooth' });
+    });
+    wrap.appendChild(dot);
+  }
+}
+
+function setActiveDot(index) {
+  if (index === activeDot) return;
+  activeDot = index;
+  document.querySelectorAll('.sp-dot').forEach((dot, i) => {
+    dot.classList.remove('active', 'visited');
+    if (i < index) dot.classList.add('visited');
+    if (i === index) dot.classList.add('active');
+  });
+}
+
+function showProgressBar() {
+  document.getElementById('scroll-progress-wrap').classList.add('visible');
+}
 
 /* ═══════════════════════════════════════════════════════════════
    SPLASH LOGIC
@@ -883,7 +1217,6 @@ let guestName   = '';   // set after splash
 function enterWithName() {
   const raw = document.getElementById('guest-name-input').value.trim();
   if (!raw) {
-    // Gentle shake + hint if blank
     const inp = document.getElementById('guest-name-input');
     inp.style.borderColor = 'rgba(229,205,171,0.7)';
     inp.placeholder = currentLang === 'ur' ? 'براہ کرم اپنا نام لکھیں…' : 'Please enter your name…';
@@ -895,7 +1228,6 @@ function enterWithName() {
     return;
   }
   guestName = raw;
-  // Pre-fill the wish form name field
   document.getElementById('w-name').value = guestName;
   dismissSplash(true);
 }
@@ -911,7 +1243,6 @@ function dismissSplash(hasName) {
   setTimeout(() => {
     splash.classList.add('gone');
 
-    // Apply personalisation if name was given
     if (hasName) {
       const t = translations[currentLang];
       const greeting = document.getElementById('guest-greeting');
@@ -927,18 +1258,20 @@ function dismissSplash(hasName) {
       hostsEl.removeAttribute('data-i18n');
     }
 
-    // Open the invitation directly — no curtain
     openGalleryDirectly();
   }, 850);
 }
 
 function openGalleryDirectly() {
   toggleMusic();
-  setTimeout(() => document.getElementById('scroll-prompt').classList.add('visible'), 2000);
+  buildProgressDots();
+  setTimeout(() => {
+    document.getElementById('scroll-prompt').classList.add('visible');
+    showProgressBar();
+  }, 2000);
   gsap.to("#ui-layer", { autoAlpha: 1, duration: 1.4, ease: "power2.out" });
 }
 
-// Allow Enter key to submit
 document.getElementById('guest-name-input').addEventListener('keydown', (e) => {
   if (e.key === 'Enter') enterWithName();
 });
@@ -954,11 +1287,8 @@ function applySplashLanguage(lang) {
   document.getElementById('splash-sub').textContent        = t.splashSub;
   document.getElementById('splash-enter-btn').textContent  = t.splashEnterBtn;
   document.getElementById('splash-skip-btn').textContent   = t.splashSkipBtn;
-  document.getElementById('splash-note').textContent       = t.splashNote;
   document.getElementById('splash-couple-tag').textContent = t.splashCoupleTag;
-  document.getElementById('splash-groom-name').textContent = t.splashGroomName;
   document.getElementById('splash-bride-name').textContent = t.splashBrideName;
-  document.getElementById('splash-date-line').textContent  = t.splashDateLine;
   const inp = document.getElementById('guest-name-input');
   inp.placeholder = isUr ? 'اپنا پورا نام لکھیں…' : 'Enter your full name…';
   inp.style.direction = isUr ? 'rtl' : 'ltr';
@@ -991,7 +1321,6 @@ function applyLanguage(lang) {
     scrollTextEl.textContent = t.scrollPrompt;
   }
 
-  // Re-apply personalised strings if name is set
   if (guestName) {
     const greeting = document.getElementById('guest-greeting');
     greeting.textContent = t.guestGreeting.replace('{name}', guestName);
@@ -1007,8 +1336,23 @@ function applyLanguage(lang) {
     }
   }
 
-  // Update splash strings while still on splash
+  // Update groom name in ex-2 (has inline HTML so handled manually)
+  const groomEl = document.getElementById('groom-name-ex2');
+  if (groomEl) {
+    if (isUr) {
+      groomEl.innerHTML = t.groomName;
+    } else {
+      groomEl.innerHTML = 'Khaja Mujtaba Ahmed <span class="name-nickname">(Asim)</span>';
+    }
+  }
+
   applySplashLanguage(lang);
+
+  // Rebuild dots with new labels
+  if (document.getElementById('scroll-progress-wrap').children.length > 0) {
+    buildProgressDots();
+    setActiveDot(activeDot);
+  }
 }
 
 function toggleLanguage() {
@@ -1204,7 +1548,10 @@ const numExhibits = exhibits.length;
 
 gsap.fromTo("#ex-1", { autoAlpha:1, y:0 }, {
   autoAlpha:0, y:-30, ease:"power1.in",
-  scrollTrigger: { trigger:"#scroll-proxy", start:"top top", end:"top+=10% top", scrub:true }
+  scrollTrigger: { trigger:"#scroll-proxy", start:"top top", end:"top+=10% top", scrub:true,
+    onEnter: () => setActiveDot(0),
+    onEnterBack: () => setActiveDot(0),
+  }
 });
 
 const zones = [
@@ -1220,6 +1567,7 @@ for (let i = 1; i < numExhibits; i++) {
   const ex = exhibits[i];
   const zone = zones[i-1];
   const isLast = (i === numExhibits - 1);
+  const dotIndex = i;
   const panel = ex.querySelector('.glass-panel, .hosts-panel');
 
   const tl = gsap.timeline({
@@ -1230,6 +1578,7 @@ for (let i = 1; i < numExhibits; i++) {
       scrub: true,
       onEnter: () => {
         ex.classList.add("active");
+        setActiveDot(dotIndex);
         if (isLast) {
           const st = document.querySelector('.scroll-text');
           st.textContent = translations[currentLang].scrollThanks;
@@ -1238,7 +1587,10 @@ for (let i = 1; i < numExhibits; i++) {
         }
       },
       onLeave: () => { if (!isLast) ex.classList.remove("active"); },
-      onEnterBack: () => ex.classList.add("active"),
+      onEnterBack: () => {
+        ex.classList.add("active");
+        setActiveDot(dotIndex);
+      },
       onLeaveBack: () => {
         ex.classList.remove("active");
         if (isLast) {
