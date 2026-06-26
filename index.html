@@ -394,47 +394,59 @@ body.lang-ur .ampersand { font-family: var(--font-urdu); letter-spacing:0; }
   display:flex; flex-direction:column; align-items:center; justify-content:center;
   text-align:center; padding:24px 20px;
   pointer-events:none;
+  opacity:1;
 }
 
 .cc-bismillah {
   font-family:'Lateef',serif;
   font-size:clamp(1.2rem,3.5vw,1.8rem);
-  color:var(--accent); opacity:0; margin-bottom:18px;
+  color:var(--accent); opacity:1; margin-bottom:18px;
   text-shadow:0 0 24px rgba(229,180,80,0.5);
   transform:translateY(6px);
 }
 .cc-ornament {
   font-size:0.85rem; letter-spacing:0.55em; color:var(--gold);
-  opacity:0; margin-bottom:14px;
+  opacity:1; margin-bottom:14px;
 }
 .cc-name {
   font-family:'Cinzel',serif;
   font-size:clamp(2rem,6.5vw,5rem);
-  color:#fff; font-weight:400; line-height:1.15; opacity:0;
+  color:#fff; font-weight:400; line-height:1.15; opacity:1;
   text-shadow:0 0 50px rgba(229,180,80,0.2), 0 2px 10px rgba(0,0,0,0.9);
   transform:translateY(12px);
 }
+.cc-bride-line {
+  font-family:'Cinzel',serif; font-size:clamp(1.85rem,1.8vw,2.2rem);
+  color:rgba(255,255,255,0.75); font-weight:400; line-height:1.4;
+  margin-top:2px;
+}
+
+.cc-bride-sub {
+  font-family:'Cinzel',serif; font-size:clamp(1.10rem,1.5vw,1.2rem);
+  color:var(--accent); opacity:0.85; line-height:1.4; margin-top:2px;
+}
+
 .cc-amp {
   font-family:'Cinzel',serif;
   font-size:clamp(1.1rem,2.8vw,2rem);
-  color:var(--accent); opacity:0; margin:4px 0;
+  color:var(--accent); opacity:1; margin:4px 0;
 }
 .cc-divider {
-  width:90px; height:1px; opacity:0; margin:16px auto;
+  width:90px; height:1px; opacity:1; margin:16px auto;
   background:linear-gradient(90deg,transparent,var(--gold),transparent);
 }
 .cc-event {
   font-size:clamp(0.58rem,1.4vw,0.72rem); letter-spacing:0.38em;
-  text-transform:uppercase; color:var(--gold); opacity:0; margin-bottom:4px;
+  text-transform:uppercase; color:var(--gold); opacity:1; margin-bottom:4px;
 }
 .cc-date {
   font-family:'Cinzel',serif;
   font-size:clamp(0.8rem,1.9vw,1.05rem);
-  color:var(--text-muted); opacity:0; margin-bottom:32px;
+  color:var(--text-muted); opacity:1; margin-bottom:32px;
 }
 
 #c-tap-btn {
-  pointer-events:auto; cursor:pointer; opacity:0;
+  pointer-events:auto; cursor:pointer; opacity:1;
   background:transparent; color:var(--accent);
   border:1px solid var(--accent);
   padding:14px 38px;
@@ -471,20 +483,30 @@ body.lang-ur .ampersand { font-family: var(--font-urdu); letter-spacing:0; }
   white-space:nowrap; position:relative; z-index:1;
 }
 
-body.lang-ur .cc-name, body.lang-ur .cc-amp, body.lang-ur .cc-date {
-  font-family: var(--font-urdu);
-}
+body.lang-ur .cc-name { font-family: var(--font-urdu); font-size: clamp(1.3rem,4vw,2.8rem); }
+body.lang-ur .cc-bride-line { font-family: var(--font-urdu); font-size: clamp(1.82rem,3.8vw,3.1rem); }
+body.lang-ur .cc-bride-sub { font-family: var(--font-urdu); font-size: clamp(1.8rem,1.4vw,0.9rem); }
 body.lang-ur .cc-event, body.lang-ur .tap-text {
-  font-family: var(--font-urdu); letter-spacing:0; text-transform:none; font-size:1rem;
+  font-family: var(--font-urdu); letter-spacing:0; text-transform:none; font-size:0.9rem;
 }
-body.lang-ur #c-tap-btn {
-  font-family: var(--font-urdu); letter-spacing:0; font-size:1rem; padding:12px 28px;
+body.lang-ur #c-tap-btn { font-family: var(--font-urdu); letter-spacing:0; font-size:0.9rem; padding:12px 28px; }
+body.lang-ur .cc-date { font-family: var(--font-urdu); font-size: clamp(0.75rem,1.6vw,0.95rem); }
+ 
+#theater-title {
+  position: absolute; inset: 0; z-index: 6;
+  display: flex; align-items: center; justify-content: center;
+  pointer-events: none; opacity: 0;
 }
-
+#theater-title .tt-inner {
+  font-family: 'Cinzel', serif; font-size: clamp(0.7rem, 1.5vw, 0.9rem);
+  letter-spacing: 0.55em; text-transform: uppercase;
+  color: rgba(234,194,102,0.55); text-shadow: 0 0 20px rgba(229,180,80,0.4);
+}
+ 
+/* Lang & Music buttons */
 #lang-btn {
-  position:fixed; top:20px; right:70px; z-index:300;
-  height:42px; padding:0 14px; border-radius:21px;
-  background:var(--glass-bg); border:1px solid var(--glass-border);
+  position:fixed; top:20px; right:70px; z-index:300; height:42px; padding:0 14px;
+  border-radius:21px; background:var(--glass-bg); border:1px solid var(--glass-border);
   backdrop-filter:blur(5px); -webkit-backdrop-filter:blur(5px);
   color:var(--text-muted); cursor:pointer;
   display:flex; align-items:center; justify-content:center; gap:6px;
@@ -499,7 +521,8 @@ body.lang-ur #lang-btn { font-family:var(--font-urdu); right:auto; left:70px; }
 body.lang-ur #mbtn { right:auto; left:20px; }
 body:not(.lang-ur) #lang-btn .active-en { color:var(--accent); }
 body.lang-ur      #lang-btn .active-ur { color:var(--accent); }
-
+ 
+/* Scroll progress */
 #scroll-progress-wrap {
   position:fixed; right:18px; bottom:105px; z-index:300;
   display:flex; flex-direction:column; align-items:center; gap:8px;
@@ -526,11 +549,13 @@ body.lang-ur      #lang-btn .active-ur { color:var(--accent); }
 .sp-dot.active .sp-label { opacity:0.7; }
 body.lang-ur #scroll-progress-wrap { right:auto; left:18px; }
 body.lang-ur .sp-label { right:auto; left:16px; letter-spacing:0; font-family:var(--font-urdu); font-size:0.75rem; }
-
+ 
+/* Main layout */
 #scroll-proxy { position:absolute; top:0; left:0; width:100%; height:1000vh; z-index:1; }
 #webgl-canvas { position:fixed; inset:0; width:100vw; height:100vh; z-index:2; pointer-events:none; }
 #ui-layer { position:fixed; inset:0; z-index:10; pointer-events:none; opacity:0; visibility:hidden; }
 @keyframes pulse { 0%,100%{opacity:0.4;} 50%{opacity:1;} }
+ 
 
 .exhibit {
   position:absolute; inset:0;
@@ -592,20 +617,6 @@ body.lang-ur .scroll-text { letter-spacing:0; font-size:0.95rem; text-transform:
 #ex-2 .glass-panel { position:relative; overflow:visible; }
 .flower-canvas { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; border-radius:12px; overflow:visible; z-index:0; }
 #ex-2 .glass-panel > *:not(.flower-canvas) { position:relative; z-index:1; }
-
-#theater-title {
-  position: absolute; inset: 0; z-index: 6;
-  display: flex; align-items: center; justify-content: center;
-  pointer-events: none; opacity: 0;
-}
-#theater-title .tt-inner {
-  font-family: 'Cinzel', serif;
-  font-size: clamp(0.7rem, 1.5vw, 0.9rem);
-  letter-spacing: 0.55em;
-  text-transform: uppercase;
-  color: rgba(234,194,102,0.55);
-  text-shadow: 0 0 20px rgba(229,180,80,0.4);
-}
 
 /* Venue action buttons */
 .venue-action-btns {
@@ -736,6 +747,19 @@ body.lang-ur .venue-action-btn {
 .toast-check { width: 24px; height: 24px; border-radius: 50%; background: rgba(234,194,102,0.15); border: 1px solid var(--accent); display: flex; align-items: center; justify-content: center; font-size: 0.75rem; color: var(--accent); flex-shrink: 0; }
 .toast-text { font-size: 0.78rem; color: rgba(253,250,246,0.85); font-weight: 300; letter-spacing: 0.04em; }
 .toast-text strong { color: var(--accent); font-weight: 500; }
+
+@media(max-width:480px){
+  body.lang-ur h1, body.lang-ur h2,
+  body.lang-ur .hosts-name, body.lang-ur .couple-names {
+    font-size: clamp(1.2rem,4.5vw,2.2rem) !important;
+  }
+  body.lang-ur .hero-title { font-size: clamp(1.4rem,5vw,2.5rem) !important; }
+  body.lang-ur .cc-name { font-size: clamp(1.1rem,3.5vw,1.8rem) !important; }
+  body.lang-ur .cc-bride-line { font-size: clamp(1rem,3vw,1.6rem) !important; }
+  body.lang-ur .cc-bride-sub { font-size: clamp(0.9rem,2.5vw,1.2rem) !important; }
+  body.lang-ur .body-text, body.lang-ur .hosts-message { font-size: 0.92rem !important; }
+  body.lang-ur .detail-val { font-size: 0.95rem !important; }
+}
 </style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-B1XPG7CPTL"></script>
 <script>
@@ -847,30 +871,37 @@ body.lang-ur #lang-btn .active-ur { color: #a1556b !important; font-weight: 600;
 <!-- REMINDER POPUP -->
 <div id="reminder-popup" role="dialog" aria-modal="true" aria-labelledby="reminder-title-el">
   <div class="reminder-card">
-    <button class="reminder-close-x" onclick="dismissReminder()" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
-    <span class="reminder-bell"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span>
+    <button class="reminder-close-x" onclick="dismissReminder()" aria-label="Close">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+    <span class="reminder-bell">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+    </span>
     <div class="reminder-ornament"></div>
     <p class="reminder-tag" id="reminder-tag-el">Don't Miss This Moment</p>
     <h2 class="reminder-title" id="reminder-title-el">Add to Calendar?</h2>
     <p class="reminder-body" id="reminder-body-el">Save the Nikah date to your Google Calendar so you never forget this blessed day.</p>
-    <div class="reminder-date-pill" id="reminder-date-pill-el" style="display:inline-flex;align-items:center;gap:6px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> Friday, 31 July 2026 · Evening</div>
+    <div class="reminder-date-pill" id="reminder-date-pill-el">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+      Friday, 31 July 2026 · Evening
+    </div>
     <div class="reminder-btns">
-      <button class="reminder-btn-yes" onclick="setReminder()" id="reminder-yes-btn" style="display:inline-flex;align-items:center;justify-content:center;gap:8px;">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> Add to Google Calendar
+      <button class="reminder-btn-yes" onclick="setReminder()" id="reminder-yes-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+        Add to Google Calendar
       </button>
       <button class="reminder-btn-no" onclick="dismissReminder()" id="reminder-no-btn">Not Now</button>
     </div>
   </div>
 </div>
-
+ 
 <div id="reminder-toast">
   <div class="toast-check"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
-  <div class="toast-text" id="toast-text-el">
-    <strong>Opening Google Calendar!</strong> Just hit Save to add the event.
-  </div>
+  <div class="toast-text" id="toast-text-el"><strong>Opening Google Calendar!</strong> Just hit Save to add the event.</div>
 </div>
 
-<!-- CURTAIN SCREEN -->
+
+<!-- CURTAIN SCREEN — content fully visible from page load -->
 <div id="curtain-screen">
   <div id="c-scanlines"></div>
   <div id="c-vignette"></div>
@@ -900,24 +931,27 @@ body.lang-ur #lang-btn .active-ur { color: #a1556b !important; font-weight: 600;
     <div class="cc-ornament">✦ &nbsp; ✦ &nbsp; ✦</div>
     <div class="cc-name" id="cc-groom">Khaja Mujtaba Ahmed</div>
     <div class="cc-amp" id="cc-amp">&amp;</div>
-    <div class="cc-name" id="cc-bride" style="font-size: clamp(1rem, 3vw, 2.2rem); letter-spacing: 0.1em; line-height: 1.4;">Daughter of Late. Mirza Ghouse Baig Sahab</div>
+    <div class="bride-curtain-block" id="bride-curtain-block">
+      <div class="cc-bride-line" id="cc-bride-line">Daughter of</div>
+      <div class="cc-bride-sub" id="cc-bride-sub">Late. Mirza Ghouse Baig Sahab</div>
+    </div>
     <div class="cc-divider"></div>
     <div class="cc-event" id="cc-event">Nikah &nbsp;·&nbsp; Walima Ceremony</div>
-    <div class="cc-date" id="cc-date">31 July & 2 August 2026 &nbsp;·&nbsp; Hyderabad</div>
+    <div class="cc-date" id="cc-date">31 July &amp; 2 August 2026 &nbsp;·&nbsp; Hyderabad</div>
     <button id="c-tap-btn" onclick="openCurtain()">
       <div class="tap-text" id="cc-tap-lbl">Tap to Open</div>
       <div class="tap-chevron-wrap"><div class="tap-chevron"></div></div>
     </button>
   </div>
 </div>
-
+ 
 <canvas id="webgl-canvas"></canvas>
 <div id="scroll-proxy"></div>
 <div class="scroll-indicator" id="scroll-prompt">
   <div class="scroll-text" data-i18n="scrollPrompt">Swipe Up</div>
   <div class="scroll-arrow"></div>
 </div>
-
+ 
 <div id="ui-layer">
 
   <!-- Exhibit 1: Bismillah welcome -->
@@ -955,8 +989,8 @@ body.lang-ur #lang-btn .active-ur { color: #a1556b !important; font-weight: 600;
       <p class="supertag" data-i18n="ex2Tag">Two Souls, One Destiny</p>
       <h2 class="couple-names" id="groom-name-ex2">Khaja Mujtaba Ahmed <span class="name-nickname">(Asim)</span></h2>
       <div class="ampersand" data-i18n="withWord">Weds</div>
-      <h2 class="couple-names" data-i18n="brideName" style="font-size: clamp(2rem, 4vw, 3.2rem); letter-spacing: 0em; line-height: 1.4;">Daughter of</h2>
-      <p class="body-text" style="margin-top:16px;font-size:1.05rem;" data-i18n="ex2Sub">Late. Mirza Ghouse Baig Sahab</p>
+      <h2 class="couple-names" data-i18n="brideName" style="font-size: clamp(1.80rem, 2vw, 3.4rem); letter-spacing: 0em; line-height: 1.4; color: rgba(255,255,255,0.7); font-weight:400;">Daughter of</h2>
+<p class="body-text" style="font-family: var(--font-display); margin-top:8px; font-size:clamp(1rem, 2vw, 2.5rem);" data-i18n="ex2Sub">Late. Mirza Ghouse Baig Sahab</p>
     </div>
   </section>
 
@@ -1093,23 +1127,6 @@ body.lang-ur #lang-btn .active-ur { color: #a1556b !important; font-weight: 600;
       <button class="btn" onclick="sendWish()" data-i18n="sendBtn">Send Your Blessings</button>
     </div>
   </section>
-
-  <!-- Exhibit 9: Creator promo -->
-  <section class="exhibit" id="ex-9">
-    <div class="glass-panel" style="text-align:center;border:1px solid rgba(234,194,102,0.15);box-shadow:none;padding:40px 20px;background:rgba(0,0,0,0.3);max-width:420px;backdrop-filter:blur(4px);">
-      <p class="supertag" data-i18n="promoTag">DIGITAL EXPERIENCES</p>
-      <h2 style="font-size:clamp(1.6rem,5vw,2.2rem);margin-bottom:10px;font-weight:400;letter-spacing:0.05em;color:var(--accent);" data-i18n="promoTitle">Beyond Ordinary Websites</h2>
-      <p class="body-text" style="font-size:0.85rem;margin-bottom:25px;color:var(--text-muted);" data-i18n="promoSub">Designed with atmosphere, motion, and emotion — for brands, founders, events, and stories meant to leave a lasting impression.</p>
-      <a href="https://wa.me/917680097715?text=Hi%20Shamsuddin,%20I'd%20love%20to%20create%20a%20premium%20digital%20experience%20for%20my%20__________.%20Can%20we%20discuss%20the%20possibilities?" target="_blank" class="btn" style="display:inline-flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;padding:12px 28px;font-size:0.75rem;background:transparent;border:1px solid rgba(234,194,102,0.4);letter-spacing:0.12em;border-radius:4px;color:var(--accent);">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="opacity:0.85;">
-          <path d="M20.52 3.48A11.86 11.86 0 0 0 12.06 0C5.52 0 .18 5.34.18 11.88c0 2.1.54 4.14 1.62 5.94L0 24l6.36-1.68a11.9 11.9 0 0 0 5.7 1.44h.06c6.54 0 11.88-5.34 11.88-11.88 0-3.18-1.26-6.18-3.48-8.4zM12.12 21.6a9.7 9.7 0 0 1-4.92-1.32l-.36-.18-3.78.96 1.02-3.66-.24-.36a9.66 9.66 0 1 1 8.28 4.56zm5.34-7.2c-.3-.18-1.8-.9-2.1-.96-.3-.12-.48-.18-.72.18-.18.3-.72.96-.9 1.14-.18.18-.3.24-.6.06-.3-.18-1.2-.42-2.28-1.38-.84-.72-1.38-1.62-1.56-1.92-.18-.3 0-.48.12-.66.12-.12.3-.3.42-.48.12-.18.18-.3.3-.54.06-.18 0-.42-.06-.6-.06-.18-.72-1.74-.96-2.34-.24-.6-.54-.54-.72-.54h-.6c-.18 0-.48.06-.72.3-.24.24-.96.9-.96 2.16s.96 2.46 1.08 2.64c.12.18 1.92 3 4.68 4.14.66.3 1.2.48 1.62.6.66.18 1.32.18 1.8.12.54-.06 1.8-.72 2.04-1.38.3-.66.3-1.26.18-1.38-.06-.18-.24-.24-.54-.42z"/>
-        </svg>
-        Begin Your Experience
-      </a>
-      <p style="margin-top:15px;font-size:0.7rem;color:var(--text-muted);" data-i18n="promoNote">Cinematic Motion · Luxury Aesthetic · Tailored Interactions</p>
-    </div>
-  </section>
-
 </div>
 
 <div id="watermark">Created by Khaja Shamsuddin &bull; Premium Invitation Experiences</div>
@@ -1219,11 +1236,16 @@ let reminderShown = false;
 const NUM_SECTIONS = 9;
 
 /* ═══════════════════════════════════════════
-   REMINDER
+   REMINDER — show only once per session
 ═══════════════════════════════════════════ */
+let reminderShownThisSession = false;
+ 
 function showReminderPopup() {
-  if (reminderShown) return;
-  reminderShown = true;
+  if (reminderShownThisSession) return;
+  // Use sessionStorage so it only shows once per browser session (tab)
+  if (sessionStorage.getItem('reminderShown')) return;
+  reminderShownThisSession = true;
+  sessionStorage.setItem('reminderShown', '1');
   document.getElementById('reminder-popup').classList.add('visible');
 }
 function dismissReminder() {
@@ -1231,15 +1253,15 @@ function dismissReminder() {
 }
 function setReminder() {
   dismissReminder();
-  const url = 'https://calendar.google.com/calendar/r/eventedit?text=Nikah+of+Mujtaba&dates=20260731T140000Z/20260731T180000Z&details=Nikah+Ceremony&location=Minerva+Garden+Function+Hall,+Hyderabad';
+  const url = 'https://calendar.google.com/calendar/r/eventedit?text=Nikah+of+Mujtaba&dates=20260731T140000Z/20260731T180000Z&details=Nikah+Ceremony&location=Qamar+Pavilion+Convention+Hall,+Hyderabad';
   window.open(url, '_blank');
   const toast = document.getElementById('reminder-toast');
-  const t = translations[currentLang];
-  document.getElementById('toast-text-el').innerHTML = t.toastSuccess;
+  document.getElementById('toast-text-el').innerHTML = translations[currentLang].toastSuccess;
   toast.classList.add('show');
   setTimeout(() => toast.classList.remove('show'), 4000);
 }
 function setReminderInline() { showReminderPopup(); }
+ 
 
 /* ═══════════════════════════════════════════
    COUNTDOWN
@@ -1269,22 +1291,23 @@ function sendWish() {
 }
 
 /* ═══════════════════════════════════════════
-   CURTAIN ENTRY ANIMATION
+   CURTAIN — content is visible from start, no intro fade
 ═══════════════════════════════════════════ */
 window.addEventListener('DOMContentLoaded', () => {
-  gsap.set(['.cc-bismillah','.cc-ornament','.cc-name','.cc-amp',
-            '.cc-divider','.cc-event','.cc-date','#c-tap-btn'], { opacity:1, y:0 });
-
+  // Tap button bounce only (content already visible)
   gsap.to('#c-tap-btn', { y:7, duration:1.5, ease:'sine.inOut', repeat:-1, yoyo:true });
   gsap.to('#c-tap-btn', { boxShadow:'0 0 22px rgba(229,180,80,0.35)', duration:1.8, ease:'sine.inOut', repeat:-1, yoyo:true });
-
-  setTimeout(() => {
-    openCurtain();
-  }, 70000); /*Curtain auto-open time (70s) */
-
+ 
+  // Auto-open fallback after 60s of inactivity
+  let autoOpenTimer = setTimeout(() => openCurtain(), 60000);
+  document.getElementById('curtain-screen').addEventListener('touchstart', () => {
+    clearTimeout(autoOpenTimer);
+  }, { passive: true });
+ 
   if (currentLang !== 'en') applyLanguage(currentLang);
   initParticlesCanvas();
 });
+
 
 /* ═══════════════════════════════════════════
    GOLD DUST PARTICLES
@@ -1297,29 +1320,7 @@ function initParticlesCanvas() {
   cvs.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:0;';
   particleCtx = cvs.getContext('2d');
 }
-function spawnParticles() {
-  const cvs = document.getElementById('c-particles');
-  cvs.width  = window.innerWidth;
-  cvs.height = window.innerHeight;
-  particles2d = [];
-  const cx = window.innerWidth/2, cy = window.innerHeight/2;
-  for (let i = 0; i < 140; i++) {
-    const angle = Math.random()*Math.PI*2;
-    const speed = 2 + Math.random()*5;
-    const isPink = Math.random() > 0.4;
-    particles2d.push({
-      x: cx+(Math.random()-0.5)*120, y: cy+(Math.random()-0.5)*120,
-      vx: Math.cos(angle)*speed, vy: Math.sin(angle)*speed-1.5,
-      life: 1.0, decay: 0.005+Math.random()*0.01,
-      size: 4+Math.random()*5, 
-      color: isPink ? `hsla(340, 70%, ${75+Math.random()*15}%, ` : `hsla(30, 80%, 90%, `,
-      rot: Math.random()*Math.PI*2, rotSpeed: (Math.random()-0.5)*0.15
-    });
-  }
-  particleActive = true;
-  gsap.to(cvs, { opacity:1, duration:0.2 });
-  animateParticles();
-}
+
 function animateParticles() {
   if (!particleActive) return;
   const cvs = document.getElementById('c-particles');
@@ -1348,30 +1349,50 @@ function animateParticles() {
   if (alive) { requestAnimationFrame(animateParticles); }
   else { particleActive = false; gsap.to(cvs, { opacity:0, duration:0.6 }); }
 }
-
 /* ═══════════════════════════════════════════
-   OPEN CURTAIN
+   AUTO SCROLL — stops on touch/hold
 ═══════════════════════════════════════════ */
 let autoScrollTimer;
+let userTouching = false;
+ 
 function resetAutoScroll() {
   clearTimeout(autoScrollTimer);
+  if (userTouching) return; // don't schedule while user is touching
   autoScrollTimer = setTimeout(() => {
+    if (userTouching) return;
     if (activeDot < NUM_SECTIONS - 1) {
       const proxy = document.getElementById('scroll-proxy');
       if (proxy) {
-        const total = proxy.offsetHeight - window.innerHeight;
         const nextIndex = activeDot + 1;
         const targets = [0, 0.155, 0.305, 0.435, 0.565, 0.685, 0.795, 0.895, 0.98];
         gsap.to(window, {
           scrollTo: proxy.offsetHeight * targets[nextIndex],
-          duration: 3,
-          ease: 'power2.inOut'
+          duration: 3, ease: 'power2.inOut'
         });
       }
     }
-  }, 5000); /*scroll time*/
+  }, 5000);
 }
-
+ 
+// Touch tracking: stop auto-scroll while finger is down
+document.addEventListener('touchstart', () => {
+  userTouching = true;
+  clearTimeout(autoScrollTimer);
+}, { passive: true });
+ 
+document.addEventListener('touchend', () => {
+  userTouching = false;
+  resetAutoScroll(); // reschedule after finger lifts
+}, { passive: true });
+ 
+document.addEventListener('touchcancel', () => {
+  userTouching = false;
+  resetAutoScroll();
+}, { passive: true });
+ 
+/* ═══════════════════════════════════════════
+   OPEN CURTAIN
+═══════════════════════════════════════════ */
 let curtainOpened = false;
 function openCurtain() {
   if (curtainOpened) return;
@@ -1379,33 +1400,41 @@ function openCurtain() {
   gsap.killTweensOf(['#c-tap-btn', '.c-pelmet-medallion']);
   document.getElementById('c-left').style.animation  = 'none';
   document.getElementById('c-right').style.animation = 'none';
-
+ 
   const tl = gsap.timeline({ onComplete: () => {
-    document.getElementById('curtain-screen').style.display = 'none';
+    const curtain = document.getElementById('curtain-screen');
+    const content = document.getElementById('c-content');
+    if (curtain) {
+      curtain.style.opacity = '0';
+      curtain.style.display = 'none';
+    }
+    if (content) {
+      content.style.opacity = '0';
+      content.style.visibility = 'hidden';
+    }
   }});
-
+ 
   tl.to('.c-corner', { borderColor:'rgba(212,175,55,1)', boxShadow:'0 0 12px rgba(212,175,55,0.7)', duration:0.22, ease:'power2.out', stagger:0.04 })
     .to('.c-corner', { borderColor:'rgba(212,175,55,0.55)', duration:0.25, ease:'power2.in' }, 0.36)
-    .to('#c-tap-btn', { opacity:0, scale:0.9, duration:0.18, ease:'power2.in' }, 0.10)
-    .to('#c-content', { opacity:0, duration:0.28, ease:'power2.in' }, 0.16)
     .to('#theater-title', { opacity:1, duration:0.32, ease:'power2.out' }, 0.28)
     .to('#theater-title', { opacity:0, duration:0.28, ease:'power2.in' }, 0.78)
     .to('#c-scanlines', { opacity:1, duration:0.25 }, 0.40)
     .to('#c-scanlines', { opacity:0, duration:0.55, ease:'power2.in' }, 0.80)
     .to('#c-left',  { x:'1.8%',  duration:0.20, ease:'power1.in' }, 0.46)
     .to('#c-right', { x:'-1.8%', duration:0.20, ease:'power1.in' }, 0.46)
-    .to('#c-left',  { x:'-112%', skewY:3,  scaleY:1.05, duration:2.0, ease:'power4.inOut' }, 0.66)
-    .to('#c-right', { x:'112%',  skewY:-3, scaleY:1.05, duration:2.0, ease:'power4.inOut' }, 0.66)
+    .to('#c-left',  { x:'-112%', skewY:3,  scaleY:1.05, duration:1.8, ease:'power4.inOut' }, 0.66)
+    .to('#c-right', { x:'112%',  skewY:-3, scaleY:1.05, duration:1.8, ease:'power4.inOut' }, 0.66)
     .to('#c-rod',    { y:-32, opacity:0, duration:0.55, ease:'power3.in' }, 0.70)
     .to('#c-rings',  { y:-28, opacity:0, duration:0.55, ease:'power3.in' }, 0.70)
     .to('#c-pelmet', { y:-240, opacity:0, duration:0.55, ease:'power3.in' }, 0.70)
     .to('.c-corner', { opacity:0, scale:0.7, duration:0.5, ease:'power3.in', stagger:0.06 }, 0.72)
     .to('#c-theater-burst', { opacity:1, duration:0.40, ease:'power3.out' }, 0.68)
-    .to('#c-theater-burst', { opacity:0, scale:1.5,  duration:1.1, ease:'power2.out' }, 1.12)
+    .to('#c-theater-burst', { opacity:0, scale:1.5, duration:1.1, ease:'power2.out' }, 1.12)
     .to('#c-vignette', { opacity:0, duration:0.9, ease:'power2.out' }, 1.0)
-    .to('#c-left',  { skewY:0, scaleY:1, duration:0.50, ease:'back.out(1.8)' }, 2.18)
-    .to('#c-right', { skewY:0, scaleY:1, duration:0.50, ease:'back.out(1.8)' }, 2.18)
-    .call(() => spawnParticles(), null, 0.66)
+    .to('#c-content', { opacity:0, duration:0.18, ease:'power2.in' }, 0.70)
+    .to('#c-left',  { skewY:0, scaleY:1, duration:0.50, ease:'back.out(1.8)' }, 2.0)
+    .to('#c-right', { skewY:0, scaleY:1, duration:0.50, ease:'back.out(1.8)' }, 2.0)
+    
     .call(() => {
       toggleMusic();
       gsap.to('#ui-layer', { autoAlpha:1, duration:1.0, ease:'power2.out' });
@@ -1413,11 +1442,12 @@ function openCurtain() {
       setTimeout(() => {
         document.getElementById('scroll-prompt').classList.add('visible');
         showProgressBar();
-        window.addEventListener('scroll', resetAutoScroll);
+        window.addEventListener('scroll', resetAutoScroll, { passive: true });
         resetAutoScroll();
       }, 1000);
-    }, null, 2.50);
+    }, null, 2.30);
 }
+
 
 /* ═══════════════════════════════════════════
    PROGRESS DOTS
@@ -1842,22 +1872,6 @@ pg2.addColorStop(0,'rgba(255,200,100,0.95)'); pg2.addColorStop(0.6,'rgba(230,20,
 pctx.fillStyle=pg2; pctx.beginPath(); pctx.ellipse(16,16,8,13,Math.PI/4,0,Math.PI*2); pctx.fill();
 const particles=new THREE.Points(pGeo,new THREE.PointsMaterial({size:0.16,map:new THREE.CanvasTexture(pcv),transparent:true,opacity:0.85,color:'#ffe0aa',blending:THREE.AdditiveBlending,depthWrite:false}));
 scene.add(particles);
-
-const groundPetalGeo=new THREE.CircleGeometry(0.065,5);
-const petalColors=['#b3000b','#d60012','#800002','#ffffff','#ffe5b4'];
-const petalDummy=new THREE.Object3D();
-petalColors.forEach((col)=>{
-  const pMat=new THREE.MeshStandardMaterial({color:col,roughness:0.9,side:THREE.DoubleSide,emissive:col,emissiveIntensity:0.05});
-  const petalMesh=new THREE.InstancedMesh(groundPetalGeo,pMat,420);
-  for(let i=0;i<420;i++){
-    const side=(Math.random()>0.5?1:-1),offset=2.15+Math.random()*1.3;
-    petalDummy.position.set(side*offset,0.016,-Math.random()*pathLength);
-    petalDummy.rotation.set(-Math.PI/2,0,Math.random()*Math.PI*2);
-    petalDummy.scale.setScalar(0.45+Math.random()*1.1); petalDummy.updateMatrix();
-    petalMesh.setMatrixAt(i,petalDummy.matrix);
-  }
-  scene.add(petalMesh);
-});
 
 window.addEventListener('resize',()=>{
   camera.aspect=window.innerWidth/window.innerHeight;
