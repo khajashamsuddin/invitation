@@ -552,7 +552,7 @@ h1,h2 { font-family:'Cinzel',serif; font-weight:400; line-height:1.2; margin-bot
 .divider { width:60px; height:1px; background:linear-gradient(90deg,transparent,var(--accent),transparent); margin:20px auto; opacity:0.6; }
 .hero-title { font-size:clamp(2.2rem,7vw,5rem); }
 .hero-arabic { font-size:2.8rem; color:var(--accent); margin-bottom:10px; font-weight:300; font-family:'Lateef',serif; text-shadow:0 0 15px rgba(234,194,102,0.4); }
-.couple-names { font-size:clamp(2.2rem,7vw,4.5rem); margin:5px 0; color:#fff; text-shadow:0 0 15px rgba(255,255,255,0.3); }
+.couple-names { font-size:clamp(1.2rem,6.2vw,4.5rem); margin:5px 0; color:#fff; text-shadow:0 0 15px rgba(255,255,255,0.3); }
 .ampersand { font-family:'Cinzel',serif; color:var(--accent); font-size:2rem; margin:-5px 0; }
 .name-nickname { font-family:'Cinzel',serif; font-size:0.55em; color:var(--accent); font-weight:400; font-style:italic; opacity:0.8; letter-spacing:0.06em; vertical-align:middle; }
 .details-grid { display:grid; grid-template-columns:1fr 1fr; gap:30px; text-align:left; }
@@ -955,8 +955,8 @@ body.lang-ur #lang-btn .active-ur { color: #a1556b !important; font-weight: 600;
       <p class="supertag" data-i18n="ex2Tag">Two Souls, One Destiny</p>
       <h2 class="couple-names" id="groom-name-ex2">Khaja Mujtaba Ahmed <span class="name-nickname">(Asim)</span></h2>
       <div class="ampersand" data-i18n="withWord">Weds</div>
-      <h2 class="couple-names" data-i18n="brideName" style="font-size: clamp(1.2rem, 3vw, 2.2rem); letter-spacing: 0.1em; line-height: 1.4;">Daughter of Late. Mirza Ghouse Baig Sahab</h2>
-      <p class="body-text" style="margin-top:16px;font-size:0.85rem;" data-i18n="ex2Sub">Son of Mr. &amp; Mrs. Khaja Ahmeduddin Ahmed</p>
+      <h2 class="couple-names" data-i18n="brideName" style="font-size: clamp(2rem, 4vw, 3.2rem); letter-spacing: 0em; line-height: 1.4;">Daughter of</h2>
+      <p class="body-text" style="margin-top:16px;font-size:1.05rem;" data-i18n="ex2Sub">Late. Mirza Ghouse Baig Sahab</p>
     </div>
   </section>
 
@@ -972,7 +972,7 @@ body.lang-ur #lang-btn .active-ur { color: #a1556b !important; font-weight: 600;
         </div>
         <div>
           <div class="detail-label" data-i18n="timeLabel">Time</div>
-          <div class="detail-val" data-i18n="nikahTimeVal">8:00 PM Onwards</div>
+          <div class="detail-val" data-i18n="nikahTimeVal">After Namaz-e-Isha</div>
         </div>
         <div>
           <div class="detail-label" data-i18n="venueLabel">Venue</div>
@@ -1512,8 +1512,15 @@ let musicPlaying = false;
 function toggleMusic() {
   const bgm = document.getElementById('bgm');
   const btn = document.getElementById('mbtn');
-  if (musicPlaying) { bgm.pause(); btn.textContent='♪'; }
-  else { bgm.play().catch(()=>{}); btn.textContent='⏸'; }
+  if (musicPlaying) { 
+  bgm.pause(); 
+  btn.innerHTML = '<svg xmlns="http://w3.org" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>'; 
+}
+else { 
+  bgm.play().catch(()=>{}); 
+  btn.innerHTML = '<svg xmlns="http://w3.org" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="14" y="4" width="4" height="16" rx="1"></rect><rect x="6" y="4" width="4" height="16" rx="1"></rect></svg>'; 
+}
+
   musicPlaying = !musicPlaying;
 }
 
