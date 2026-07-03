@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mujtaba's (Asim's) — Wedding</title>
-<meta name="description" content="Join us in celebrating the Nikah & Walima of Khaja Mujtaba Ahmed in Hyderabad."/>
+<meta name="description" content="Join us in celebrating the Nikah & Valima of Khaja Mujtaba Ahmed in Hyderabad."/>
 <meta property="og:title" content="Khaja Mujtaba Ahmed's (Asim's) — Wedding"/>
-<meta property="og:description" content="We joyfully invite you to our Nikah & Walima ceremony. Tap to open full invitation!"/>
+<meta property="og:description" content="We joyfully invite you to our Nikah & Valima ceremony. Tap to open full invitation!"/>
 <meta property="og:type" content="website"/>
 <meta property="og:image" content="https://khajashamsuddin.github.io/invitation/invite.jpg"/>
 <meta name="twitter:card" content="summary_large_image"/>
@@ -56,8 +56,10 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
             z-index: 0;
             pointer-events: none;
             object-fit: cover;
@@ -235,7 +237,7 @@
 <body style="overflow: hidden;">
 
     <!-- Curtain Overlay -->
-    <div id="curtain-overlay" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 9999; display: flex; overflow: hidden; background: #000;">
+    <div id="curtain-overlay" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 9999; display: flex; overflow: hidden; background: #000;">
         <!-- Left Curtain -->
         <div id="curtain-left" style="width: 50%; height: 100%; background: url('Left side of curtain .jpg') right center / cover no-repeat; transition: transform 2s cubic-bezier(0.77, 0, 0.175, 1);"></div>
         <!-- Right Curtain -->
@@ -331,11 +333,11 @@
             </div>
         </section>
 
-        <!-- Section 4: Walima -->
+        <!-- Section 4: Valima -->
         <section id="sec-walima">
             <div class="glass-card">
-                <p class="supertag" id="t-ex4Tag">The Wedding Reception</p>
-                <h2 class="section-title" id="t-walimaTitle">ولیمہ &nbsp;· Walima</h2>
+                <p class="supertag" id="t-ex4Tag" style="margin-bottom: 2rem;">The Wedding Reception</p>
+                <h2 class="section-title" id="t-walimaTitle">ولیمہ &nbsp;· Valima</h2>
                 <div class="details-grid">
                     <div>
                         <div class="detail-label">Date</div>
@@ -423,7 +425,7 @@
             brideName:"Shaista Fatima",
             brideParent:"d/o Late Mirza Ghouse Baig Sahab",
             ex3Tag:"The Sacred Union", nikahTitle:"نکاح &nbsp;· Nikah",
-            ex4Tag:"The Wedding Reception", walimaTitle:"ولیمہ &nbsp;· Walima",
+            ex4Tag:"The Wedding Reception", walimaTitle:"ولیمہ &nbsp;· Valima",
             dateLabel:"Date", timeLabel:"Time", venueLabel:"Venue", locationLabel:"Location",
             nikahDateVal:"Friday, 31 July 2026", nikahTimeVal:"After Namaz-e-Isha",
             nikahVenueVal:"Qamar Pavilion Convention Hall", nikahLocationVal:"Hyderabad, Telangana",
@@ -630,10 +632,14 @@
         // Fallback render just in case images are cached and onload fires early
         setTimeout(renderCanvas, 100);
 
+        let lastWidth = window.innerWidth;
         window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            renderCanvas();
+            if (window.innerWidth !== lastWidth) {
+                lastWidth = window.innerWidth;
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                renderCanvas();
+            }
         });
 
         /* ═══════════════════════════════════════════
