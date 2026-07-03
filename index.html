@@ -75,7 +75,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 2rem;
+            padding: 15px;
             position: relative;
         }
 
@@ -84,8 +84,8 @@
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 3rem 2rem;
+            border-radius: 12px;
+            padding: 40px 25px;
             max-width: 800px;
             width: 100%;
             text-align: center;
@@ -113,7 +113,10 @@
         .divider { width: 80px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 2rem auto; opacity: 0.7; }
         
         .details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; text-align: left; margin-top: 2rem; }
-        @media (max-width: 600px) { .details-grid { grid-template-columns: 1fr; text-align: center; } }
+        @media (max-width: 600px) { 
+            .details-grid { grid-template-columns: 1fr; text-align: center; } 
+            .glass-card { padding: 30px 15px; }
+        }
         
         .detail-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.2em; color: rgba(253, 250, 246, 0.5); margin-bottom: 0.5rem; }
         .detail-val { font-size: 1.2rem; font-family: var(--font-display); color: #fff; }
