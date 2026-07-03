@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Mujtaba's (Asim's) — Wedding</title>
 <meta name="description" content="Join us in celebrating the Nikah & Valima of Khaja Mujtaba Ahmed in Hyderabad."/>
 <meta property="og:title" content="Khaja Mujtaba Ahmed's (Asim's) — Wedding"/>
@@ -664,19 +664,19 @@
             onUpdate: renderCanvas
         });
 
-        // 2. Animate the Glass Cards with a Cinematic Zoom Scroll
+        // 2. Animate the Glass Cards smoothly (No Zoom)
         const cards = gsap.utils.toArray('.glass-card');
         cards.forEach((card, i) => {
             const section = card.closest('section');
             
             if (i === 0) {
-                // First card: already visible at the top, just zooms past us when scrolling down
-                gsap.set(card, { opacity: 1, scale: 1, y: 0, filter: "blur(0px)" });
+                // First card: already visible at the top, fades out smoothly
+                gsap.set(card, { opacity: 1, y: 0, filter: "blur(0px)" });
                 
                 gsap.to(card, {
                     opacity: 0,
-                    scale: 1.5,
-                    filter: "blur(15px)",
+                    y: -50,
+                    filter: "blur(10px)",
                     scrollTrigger: {
                         trigger: section,
                         start: "top top",
@@ -685,30 +685,27 @@
                     }
                 });
             } else {
-                // Other cards: Zoom in from the distance (scale 0.5 -> 1), stay a bit, then zoom past (scale 1 -> 1.5)
+                // Other cards: Slide up gently and fade in, then slide up and fade out
                 const tl = gsap.timeline({
                     scrollTrigger: {
                         trigger: section,
-                        start: "top bottom", // Starts when section enters bottom of viewport
-                        end: "bottom top",   // Ends when section leaves top of viewport
+                        start: "top bottom", 
+                        end: "bottom top",   
                         scrub: 1,
                     }
                 });
 
-                const sideDir = (i % 2 === 0) ? -200 : 200;
                 tl.fromTo(card, 
-                    { opacity: 0, scale: 0.5, x: sideDir, y: 0, filter: "blur(10px)" },
-                    { opacity: 1, scale: 1, x: 0, y: 0, filter: "blur(0px)", duration: 0.4, ease: "power2.out" }
+                    { opacity: 0, y: 100, filter: "blur(10px)" },
+                    { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.4, ease: "power2.out" }
                 )
                 .to(card, {
                     opacity: 0, 
-                    scale: 1.5, 
-                    x: -sideDir * 0.5, // Drift slightly to the opposite side as it zooms past
-                    y: 0,
-                    filter: "blur(15px)", 
+                    y: -100,
+                    filter: "blur(10px)", 
                     duration: 0.4, 
                     ease: "power2.in"
-                }, "+=0.2"); // The "+=0.2" adds a small delay so the card stays readable in the middle of the scroll
+                }, "+=0.2");
             }
         });
 
